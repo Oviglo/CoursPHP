@@ -43,6 +43,28 @@ if ($estAdmin) {
             } else {
                 echo 'a est plus petit que b';
             }
+
+            $compte = 'admin';
+            // Egalité chaîne
+            if ('admin' == $compte) {
+            }
+
+            // Different
+            if ($a != $b) {
+            }
+
+            /*
+                == test d'égalité
+                === identique (strictement égale) si les valeurs sont égales ET si elles sont du même type
+
+            */
+            if (true == $compte) { // $compte != ""
+                echo '<br/>la chaine est vraie';
+            }
+
+            if (true === $compte) {
+                echo 'Même type';
+            }
         ?>
     </body>
 </html>
