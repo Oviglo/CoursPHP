@@ -26,7 +26,7 @@
             <?php for ($ligne = 1; $ligne <= 20; ++$ligne): ?>
             <tr>
                 <!-- <?=$ligne; ?> affiche directement une variable (plutôt que d'écrire echo) -->
-                <td class="color">Ligne <?=$ligne; ?></td>
+            <td <?php if ($ligne >= 10): ?> class="color"<?php endif; ?>>Ligne <?=$ligne; ?></td>
             </tr>
             <?php endfor; ?>
         </tbody>
