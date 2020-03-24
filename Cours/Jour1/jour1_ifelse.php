@@ -62,7 +62,7 @@ if ($estAdmin) {
                 echo '<br/>la chaine est vraie';
             }
 
-            if (true === $compte) {
+            if (true === $compte) { // !==
                 echo 'Même type';
             }
         ?>
