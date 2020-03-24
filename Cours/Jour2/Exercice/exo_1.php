@@ -31,6 +31,7 @@ $nbColonnes = 12;
                 <tr>
                     <?php for ($colonne = 1; $colonne <= $nbColonnes; ++$colonne) :
                         $index = $colonne + (($ligne - 1) * $nbColonnes);
+                        // colonne courante + ( ligne courante moins 1 * nombre de colonne )
                     ?>
                     <td <?php if (0 == $index % 2) :?> class="color"<?php endif; ?>>
                         Item <?php echo $index; ?>
