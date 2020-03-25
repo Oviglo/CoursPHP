@@ -15,3 +15,32 @@
         (et les autres champs manquants)"
 
      */
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exo véhicule</title>
+</head>
+<body>
+    <form action="enregistrer_vehicule.php" method="post">
+        <!-- (div>label>input:text)*4 -->
+        <div><label>Marque :<input type="text" name="brand" id=""></label></div>
+        <div><label>Modèle :<input type="text" name="model" id=""></label></div>
+        <div><label>Poids :<input type="text" name="weight" id=""></label></div>
+        <div>
+            <label> Type de boîte
+                <select name="type">
+                    <option value="manual">Manuelle</option>
+                    <option value="auto">Automatique</option>
+                </select>
+            </label>
+        </div>
+        <div>
+            <label>Disponible <input type="checkbox" name="dispo" ></label>
+        </div>
+        <button type="submit">Enregistrer</button>
+    </form>
+</body>
+</html>
