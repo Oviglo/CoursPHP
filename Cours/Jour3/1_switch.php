@@ -4,7 +4,7 @@
 Le switch permet d'exécuter du code en fonction de la valeur d'une variable
 */
 
-$status = 3;
+$status = 1;
 // 1 = simple utilisateur, 2 = modérateur, 3 = admin
 
 switch ($status) { // en fonction de $status ...
