@@ -40,7 +40,7 @@
         <div>
             <label>Disponible <input type="checkbox" name="dispo" ></label>
         </div>
-        <button type="submit">Enregistrer</button>
+        <button type="submit" >Enregistrer</button>
     </form>
 </body>
 </html>
