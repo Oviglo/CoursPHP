@@ -94,3 +94,35 @@ $articles = [
 
 // Explorer le tableau dans un foreach et afficher le titre
 // var_dump()
+/*$article = $articles[1];
+$article['title'];*/
+//$articles[1]['title'];
+echo '<hr>';
+foreach ($articles as $article) {
+    // var_dump($article);
+    // element "title" de $article
+    // echo $article['title'].'<br/>';
+    // Explorer article pour afficher tous les éléments (title, date, public)
+    foreach ($article as $index => $champ) {
+        echo $index.' : '.$champ.'<br/>';
+    }
+}
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jours</title>
+</head>
+<body>
+    <ul>
+        <!-- Jours de la semaine --> 
+        <!-- explorer la variable $jours pour mettre les éléments dans une balise li -->
+        <?php foreach ($jours as $jour): ?>
+        <li><?=$jour; ?></li>    
+        <?php endforeach; ?>
+    </ul>
+</body>
+</html>
