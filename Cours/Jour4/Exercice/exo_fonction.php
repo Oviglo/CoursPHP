@@ -106,13 +106,14 @@ function getInfo($info) // Param $info correspond à l'index du tableau demandé
 function getInfo($info)
 {
     $user = getUser();
+    // Operateur ternaire : condition? oui : non 
     return isset($user[$info])? $user[$info] : "Inconnu";
 }
 
 function getInfo($info)
 {
     $user = getUser();
-
+    // Si $user[$info] existe, on la retourne sinon on retourne "Inconnu"
     return $user[$info]?? "Inconnu";
 }
 
