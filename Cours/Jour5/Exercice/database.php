@@ -46,7 +46,7 @@ function getArticles($pdo)
 }
 
 /*
-Ecrire une fonction getArticle($id) qui retournera un seul article à partir de l'id
+Ecrire une fonction getArticle($pdo, $id) qui retournera un seul article à partir de l'id
 - la fonction $request->fetch() va retourner un seul résultat 
-- utiliser la fonction prepare et bindValue pour définir l'id que la requête doit rechercher
+- utiliser la fonction "prepare" et "bindValue" pour définir l'id que la requête doit rechercher
 */
