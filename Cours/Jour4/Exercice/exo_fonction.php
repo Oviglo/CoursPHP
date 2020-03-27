@@ -32,12 +32,58 @@ echo '<br/>Nombre de minutes depuis le 18 juin 1944 :'.minute($juin44);
 /*
  - Ecrire une fonction qui retourne l'aire d'un rectangle avec les deux dimensions données en paramètre
  - Modifier cette fonction avec le deuxième paramètre facultatif (=0) s'il est à 0 alors ce sera l'aire d'un carré
+*/
+/*function airRectangle($longueur, $largeur)
+{
+    return $longueur * $largeur;
+}*/
 
- - Ecrire la fonction getUser qui retournera un tableau avec des données au hasard (nom, prenom, email)
+function airRectangle($longueur, $largeur = 0)
+{
+    if (!$largeur) { // $largeur = 0 donc a false
+        return $longueur * $longueur; // le return met fin au code de la fonction
+    } 
+
+    return $longueur * $largeur;
+}
+
+echo '<br/>AIR<br/>';
+echo "L'air du rectangle 20*40 est égale à:".airRectangle(20, 40);
+echo '<br/>';
+echo "L'air du carré de coté 80 est égale à :".airRectangle(80);
+/*
+
+ - Ecrire la fonction getUser qui retournera un tableau avec des données (nom, prenom, email)
  - Ecrire une seconde fonction getPrenom qui va retourner le prénom envoyé par getUser (appel de getUser dans getPrenom)
  - Ecrire la fonction getInfo avec en paramètre une chaine contenant l'info demandé ("prenom", "nom" etc.) tester si elle existe
  - getInfo('prenom');
+*/
+echo '<br/>USER<br/>';
+function getUser($nom = 'Durand', $prenom = 'Jean', $email = 'j.durand@gmail.com')
+{
+    return [
+        'nom' => $nom,
+        'prenom' => $prenom,
+        'email' => $email,
+    ];
+}
 
+var_dump(getUser('Uderzo'));
+
+
+function getPrenom()
+{
+    $user = getUser();
+
+    return $user['prenom'];
+
+    //return getUser()['prenom'];
+}
+
+echo "Prenom: ". getPrenom();
+echo '<br/>';
+echo "Email: ".getInfo('email'); // getInfo('nom')
+/*
  - Ecrire une fonction url qui demandera un lien et un nom en paramètre et qui retournera un code html avec une balise a
  - getUrl('https://oviglo.fr', 'Lien vers ma page')
  - '<a href="https://oviglo.fr">Lien vers ma page</a>
