@@ -82,6 +82,46 @@ function getPrenom()
 
 echo "Prenom: ". getPrenom();
 echo '<br/>';
+
+/*
+getInfo('email') // retourne $user['email']
+
+if (isset($user[$info])) {  }
+
+getInfo('telephone') return $user[]
+*/
+function getInfo($info) // Param $info correspond à l'index du tableau demandé
+{
+    $user = getUser(); // $user est un tableau avec les index ('prenom', 'nom', 'email')
+    // $user['email'], $user['prenom'], $user['nom']
+
+    if (isset($user[$info])) {
+        return $user[$info]; // Récupère l'élément du tableau en fonction de l'index qui se trouve dans $info
+    }
+
+    return "Inconnu";
+}
+
+/*
+function getInfo($info)
+{
+    $user = getUser();
+    return isset($user[$info])? $user[$info] : "Inconnu";
+}
+
+function getInfo($info)
+{
+    $user = getUser();
+
+    return $user[$info]?? "Inconnu";
+}
+
+function getInfo($info) 
+{
+    return getUser()[$info]?? "Inconnu";
+}
+*/
+
 echo "Email: ".getInfo('email'); // getInfo('nom')
 /*
  - Ecrire une fonction url qui demandera un lien et un nom en paramètre et qui retournera un code html avec une balise a
