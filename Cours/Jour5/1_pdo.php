@@ -20,7 +20,7 @@ $dsn = 'mysql:host=localhost;dbname=wf3_test';
 $pdo = new PDO($dsn, 'root', ''); // Retourne un objet (groupe de fonctions)
 // Dire à PDO d'afficher les erreurs
 // $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+$pdo->exec('SET CHARACTER SET utf8'); // Indique qu'il faut encoder en utf8 (pour les accents)
 // Création d'une table "article"
 $query = '
     CREATE TABLE article (
@@ -47,16 +47,35 @@ $date = '2019-12-01';
 $content = 'Mon super article';
 
 // Demande à PDO de "préparer" une requête, PDO va retourner un objet PDOStatement
+
 $prep = $pdo->prepare("INSERT INTO article (title, date_create, content)
 VALUES (?, ?, ?)");
 
 // Remplace les inconnus (?) par des variables PHP
 // Passer par bindValue permet à PDO de contrôler les valeurs (evite les injections SQL)
+// Permet aussi d'éxecuter plusieurs fois la même requêtes dans le script
 $prep->bindValue(1, $title);
 $prep->bindValue(2, $date);
 $prep->bindValue(3, $content);
 
 // Exécuter la requête
-$prep->execute();
+// $prep->execute();
 
-var_dump( $pdo->errorInfo() );
+// var_dump( $pdo->errorInfo() ); // Affiche les erreurs quand on fait $pdo->exec('')
+
+/*$articleSelect = $pdo->prepare("SELECT * FROM article");
+$articleSelect->execute();
+$articles = $articleSelect->fetchAll(); // Insère le resultat de la requête dans $articles
+*/
+
+// Autre manière
+
+$request = $pdo->query("SELECT * FROM article");
+$articles = $request->fetchAll(PDO::FETCH_ASSOC); // PDO::FETCH_ASSOC permet d'afficher les valeur avec le nom de des champs sans les clés numériques
+// SANS FETCH_ASSOC => ['title' => 'Titre', 0 => 'Titre']
+// AVEC FETCH_ASSOC => ['title' => 'Titre']
+// Pour utiliser FETCH_ASSOC pour toutes les requêtes:
+$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+
+var_dump($articles);
