@@ -21,6 +21,16 @@ if (!empty($_POST)) {
     if (strlen($_POST['title']) < 3) { // Génére une erreur si longueur de title < 3
         $errors['title'] = 'Le titre est trop court';
     }
+
+    if (strlen($_POST['content']) < 10) {
+        $errors['content'] = 'Le contenu est trop court';
+    }
+
+    // Test s'il n'y a pas d'erreur
+    if (empty($errors)) {
+        if (editArticle($pdo, $id, $_POST['title'], $_POST['content'])) {
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -47,7 +57,12 @@ if (!empty($_POST)) {
             </div>
             <div class="form-group">
                 <label for="content">Contenu</label>
-                <textarea name="content" id="content" cols="30" rows="10" class="form-control"><?=$article['content']; ?></textarea>
+                <textarea name="content" id="content" cols="30" rows="10" class="form-control <?=isset($errors['content']) ? 'is-invalid' : ''; ?>"><?=$article['content']; ?></textarea>
+                <?php if (isset($errors['content'])): ?>
+                <div class="invalid-feedback">
+                    <?=$errors['content']; ?>
+                </div>
+                <?php endif; ?>
             </div>
             <button type="submit" class="btn btn-primary">Enregistrer</button>
         </form>
