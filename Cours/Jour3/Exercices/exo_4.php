@@ -16,13 +16,16 @@
             - Les éléments de liste <li> contiendront un <a> dirigeant
                 vers chacune des pages
      */
+    require_once 'functions.php';
+
     $items = [
-        'Accueil',
-        'Contact',
-        'Portfolio',
+        'Accueil' => '?p=accueil',
+        'Contact' => '?p=contact',
+        'Portfolio' => '?p=portfolio',
     ];
 
     // $items ['Accueil' => '/accueil.php'] ...
+
 ?>
 <nav>
     <?php echo getListMenu($items); ?>
