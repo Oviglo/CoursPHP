@@ -87,3 +87,7 @@ function editArticle($pdo, $id, $title, $content)
     // Autre manière d'envoyer des valeurs
     // $request->execute([':title' => $title, ':content' => $content, ':id' => $id]);
 }
+
+/*
+ * Ajoute un article
+ */

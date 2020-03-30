@@ -1,7 +1,8 @@
-<?php 
+<?php
 $title = 'WF3 Croisière';
 
 $slides = [];
+
 ob_start(); ?>
 <h1>WF3 Croisière</h1>
 
@@ -19,7 +20,7 @@ ob_start(); ?>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Date de départ après</label>
-                        <input type="date" class="form-control" name="date" value="<?=date('Y-m-d')?>"/>
+                        <input type="date" class="form-control" name="date" value="<?=date('Y-m-d'); ?>"/>
                     </div>
                     <input type="hidden" name="p" value="recherche"/>
                     <button type="submit" class="btn btn-primary btn-block">Rechercher</button>
@@ -33,10 +34,12 @@ ob_start(); ?>
         <div id="carouselIndex" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
             <?php foreach ($slides as $key => $slide) : ?>
-                <div class="carousel-item <?php if ($key == 0) echo "active"; ?>">
-                    <img src="<?=$slide['photo']?>" class="d-block w-100" alt="<?=$slide['name']?>">
+                <div class="carousel-item <?php if (0 == $key) {
+    echo 'active';
+} ?>">
+                    <img src="<?=$slide['photo']; ?>" class="d-block w-100" alt="<?=$slide['name']; ?>">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5><?=$slide['name']?></h5>
+                        <h5><?=$slide['name']; ?></h5>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -51,9 +54,9 @@ ob_start(); ?>
             </a>
         </div>
         <hr/>
-            <?php endif; ?>
+        <?php endif; ?>
     </div>
 </div>
 <?php $content = ob_get_clean(); ?>
 
-<?php require('../template.php'); ?>
+<?php require '../template.php'; ?>

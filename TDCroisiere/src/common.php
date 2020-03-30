@@ -1,10 +1,10 @@
-<?php 
+<?php
 
 session_start();
 
 function isAdmin(): bool
 {
-    return isset($_SESSION['user_admin']) && $_SESSION['user_admin'] == 1;
+    return isset($_SESSION['user_admin']) && 1 == $_SESSION['user_admin'];
 }
 
 function checkAdmin()
@@ -14,4 +14,4 @@ function checkAdmin()
     }
 }
 
-require_once('model/database.php');
+require_once 'model/database.php';
