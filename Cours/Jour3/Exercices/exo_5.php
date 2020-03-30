@@ -23,7 +23,7 @@ in_array($tags, ['p', 'div'])
 Retourne vrai si $tags est dans un élément du tableau
 
 */
-function elementsIncustomTags($elements, $tag = 'div')
+function elementsIncustomTags(array $elements, string $tag = 'div')
 {
     $html = '';
 
