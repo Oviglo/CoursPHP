@@ -72,3 +72,18 @@ function getArticle($pdo, $id)
 
     return $request->fetch(); // Retourne l'article trouvé sous forme de tableau PHP
 }
+
+/**
+ * Modifie un article.
+ */
+function editArticle($pdo, $id, $title, $content)
+{
+    $request = $pdo->prepare('UPDATE article SET title=:title, content=:content WHERE id=:id');
+    $request->bindValue(':title', $title);
+    $request->bindValue(':content', $content);
+    $request->bindValue(':id', $id, PDO::PARAM_INT);
+
+    return $request->execute(); // Retourne true si tout s'est bien passé
+    // Autre manière d'envoyer des valeurs
+    // $request->execute([':title' => $title, ':content' => $content, ':id' => $id]);
+}

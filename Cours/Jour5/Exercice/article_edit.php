@@ -2,6 +2,8 @@
 
 require_once 'database.php';
 
+$errors = []; // Va contenir les erreurs de valaidation pour les afficher dans le formulaire
+
 $pdo = getPDO();
 // Si la variable get "id" n'existe pas
 if (!isset($_GET['id'])) {
@@ -16,7 +18,9 @@ if (!empty($_POST)) {
     $_POST['content'] = trim(strip_tags($_POST['content'], '<p><a><img>')); // strip_tags($_POST['content'], '<p><a><strong>'); autorise seulement les balises entrées en paramètre
     array_map('trim', $_POST); // Execute la fonction "trim" pour tous les éléments d'un tableau
 
-    var_dump($_POST);
+    if (strlen($_POST['title']) < 3) { // Génére une erreur si longueur de title < 3
+        $errors['title'] = 'Le titre est trop court';
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -34,7 +38,12 @@ if (!empty($_POST)) {
         <form action="" method="post">
             <div class="form-group">
                 <label for="title">Titre</label>
-                <input type="text" name="title" id="title" class="form-control" value="<?=$article['title']; ?>">
+                <input type="text" name="title" id="title" class="form-control <?=isset($errors['title']) ? 'is-invalid' : ''; ?>" value="<?=$article['title']; ?>">
+                <?php if (isset($errors['title'])): ?>
+                <div class="invalid-feedback">
+                    <?=$errors['title']; ?>
+                </div>
+                <?php endif; ?>
             </div>
             <div class="form-group">
                 <label for="content">Contenu</label>
