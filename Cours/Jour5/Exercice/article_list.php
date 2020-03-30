@@ -26,7 +26,7 @@ $articles = getArticles($pdo);
                 <tr>
                     <th>Titre</th>
                     <th>Date</th>
-                    <th></th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,7 +41,11 @@ $articles = getArticles($pdo);
                         <td>
                             <?=date_format(date_create($article['date_create']), 'd/m/Y'); // 2020-03-27?>
                         </td>
-                        <td></td>
+                        <td>
+                            <a class="btn btn-secondary" href="article_edit.php?id=<?=$article['id']; ?>">
+                                Modifier    
+                            </a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
