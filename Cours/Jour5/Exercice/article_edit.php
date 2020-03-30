@@ -29,7 +29,10 @@ if (!empty($_POST)) {
     // Test s'il n'y a pas d'erreur
     if (empty($errors)) {
         if (editArticle($pdo, $id, $_POST['title'], $_POST['content'])) {
+            header('Location: article_list.php');
         }
+
+        $errors['global'] = "Un erreur est survenue, votre article n'a pas pu être enregistré";
     }
 }
 ?>
@@ -46,6 +49,9 @@ if (!empty($_POST)) {
         <h1>Editer un article</h1>
         <!-- form:post>(div.form-group>label+input:text.form-control)+(div.form-group>label+textarea.form-control)+button:submit -->
         <form action="" method="post">
+            <?php if (isset($errors['global'])): ?>
+                <div class="alert alert-danger"><?=$errors['global']; ?></div>
+            <?php endif; ?>
             <div class="form-group">
                 <label for="title">Titre</label>
                 <input type="text" name="title" id="title" class="form-control <?=isset($errors['title']) ? 'is-invalid' : ''; ?>" value="<?=$article['title']; ?>">
