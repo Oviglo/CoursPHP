@@ -1,7 +1,7 @@
-<?php 
+<?php
 
 // Appel du fichier database.php
-require_once('database.php');
+require_once 'database.php';
 
 $pdo = getPDO();
 //var_dump($pdo->errorInfo());
@@ -33,9 +33,13 @@ $articles = getArticles($pdo);
                 <!-- Liste des articles -->
                 <?php foreach ($articles as $article): ?>
                     <tr>
-                        <td><?=$article['title']?></td>
                         <td>
-                            <?=date_format(date_create($article['date_create']), 'd/m/Y') // 2020-03-27 ?>
+                            <a href="article_show.php?id=<?=$article['id']; ?>">
+                                <?=$article['title']; ?>
+                            </a>
+                        </td>
+                        <td>
+                            <?=date_format(date_create($article['date_create']), 'd/m/Y'); // 2020-03-27?>
                         </td>
                         <td></td>
                     </tr>

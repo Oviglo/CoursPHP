@@ -9,7 +9,7 @@ if (!isset($_GET['id'])) {
     header('Location: article_list.php'); // Indique au serveur de retourner vers la page article_list
     // Le code en dessous de la redirection n'est pas executé
 }
-$id = $_GET['id']; // Récupére l'id dans le lien "article_shop.php?id=1"
+$id = $_GET['id']; // Récupére l'id dans le lien "article_show.php?id=1"
 $article = getArticle($pdo, $id); // Récupérer $_GET['id'] pour afficher l'article en fonction du lien
 ?>
 <!DOCTYPE html>
