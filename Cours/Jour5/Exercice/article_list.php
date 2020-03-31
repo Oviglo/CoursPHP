@@ -20,6 +20,8 @@ $articles = getArticles($pdo);
 <body>
     <div class="container">
         <h1>Liste des articles</h1>
+        <a href="article_edit.php" class="btn btn-success">Ajouter une article</a>
+        <hr/>
         <!-- table.table>(thead>tr>th*3)+tbody -->
         <table class="table">
             <thead class="thead-dark">

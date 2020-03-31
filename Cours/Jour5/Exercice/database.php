@@ -100,8 +100,24 @@ function addArticle($pdo, $title, $content)
     // Puis remplacer les valeurs par des variables
     $request = $pdo->prepare('INSERT INTO article (title, content, date_create) 
     VALUES (:title, :content, CURRENT_DATE())');
+
     $request->bindValue(':title', $title);
     $request->bindValue(':content', $content);
+
+    // NON  SECURISE
+    // $pdo->query("INSERT INTO article (title, content, date_create) VALUES ($title, $content, CURRENT_DATE())");
+
+    return $request->execute();
+}
+
+/**
+ * Supprimer un article.
+ */
+function deleteArticle($pdo, $id)
+{
+    // DELETE FROM article WHERE id = 1
+    $request = $pdo->prepare('DELETE FROM article WHERE id = :id');
+    $request->bindValue(':id', $id, PDO::PARAM_INT);
 
     return $request->execute();
 }
