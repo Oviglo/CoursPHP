@@ -6,7 +6,7 @@ require_once './../src/common.php';
 $page = $_GET['p'] ?? 'accueil';
 
 // S'il y a la chaine "admin" dans cette variable
-if (false !== strpos($page, 'admin')) {
+if (false !== strpos($page, 'admin_')) {
     $page = substr($page, 6); // On supprime "admin_" de la chaîne
     checkAdmin(); // Test si l'utilisateur est administrateur
     require_once "./../src/page/admin/$page.php"; // Charge la page dans le dossier admin

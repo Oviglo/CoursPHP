@@ -3,7 +3,7 @@
     Créer deux pages :
 
     `create-session.php`
-        La page initialisera une variable de session 'viewed' à `true`;
+        La page initialisera une variable de session 'viewed' à true;
 
     `get-viewed.php`
         La page affichera un message 'Vous avez visité la page
@@ -13,3 +13,5 @@
         la page create-session'
 
     */
+session_start();
+$_SESSION['viewed'] = true;
