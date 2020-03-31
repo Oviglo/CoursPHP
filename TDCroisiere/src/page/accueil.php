@@ -3,7 +3,11 @@ $title = 'WF3 Croisière';
 
 $slides = [];
 
-ob_start(); ?>
+$destinations = getAllDestinations();
+var_dump($destinations);
+
+ob_start(); // Commence à enregistrer le code html
+// On pas oublie à la fin: $content = ob_get_clean();?>
 <h1>WF3 Croisière</h1>
 
 <div class="row">
@@ -11,11 +15,13 @@ ob_start(); ?>
         <div class="card">
             <div class="card-header">Trouvez votre croisière</div>
             <div class="card-body">
+                <!-- Formulaire de recherche -->
                 <form action="index.php" method="GET">
                     <div class="form-group">
                         <label class="form-label">Destination</label>
                         <select name="destination" class="form-control">
                             <option value="">Toutes</option>
+                            <!-- boucle sur les destinations -->
                         </select>
                     </div>
                     <div class="form-group">
@@ -57,6 +63,6 @@ ob_start(); ?>
         <?php endif; ?>
     </div>
 </div>
-<?php $content = ob_get_clean(); ?>
+<?php $content = ob_get_clean(); // Stock tout le code html enregistré dans la variable $content?>
 
 <?php require '../template.php'; ?>
