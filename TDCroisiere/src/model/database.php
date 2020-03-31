@@ -5,3 +5,4 @@ $pdo = new PDO('mysql:host=localhost;dbname=wf3_croisiere', 'root', '', [PDO::AT
 $pdo->exec('SET CHARACTER SET utf8'); // Indique à PDO qu'on veut de l'encodage UTF-8
 
 require_once 'destination.php'; // reviens à copier/coller le code de destination.php
+require_once 'cruise.php';

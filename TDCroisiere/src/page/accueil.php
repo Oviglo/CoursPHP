@@ -4,7 +4,7 @@ $title = 'WF3 Croisière';
 $slides = [];
 
 $destinations = getAllDestinations();
-var_dump($destinations);
+// var_dump($destinations);
 
 ob_start(); // Commence à enregistrer le code html
 // On pas oublie à la fin: $content = ob_get_clean();?>
@@ -22,6 +22,9 @@ ob_start(); // Commence à enregistrer le code html
                         <select name="destination" class="form-control">
                             <option value="">Toutes</option>
                             <!-- boucle sur les destinations -->
+                            <?php foreach ($destinations as $destination): ?>
+                            <option value="<?=$destination['id']; ?>"><?=$destination['name']; ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="form-group">
