@@ -5,16 +5,21 @@ require_once 'database.php';
 $errors = []; // Va contenir les erreurs de valaidation pour les afficher dans le formulaire
 
 $pdo = getPDO();
-// Si la variable $_GET "id" existe (isset()), on l'affecte dans $id, sinon on met $id à 0
-$id = $_GET['id'] ?? 0;
+// Si la variable get "id" n'existe pas
+if (!isset($_GET['id'])) {
+    // Nouvel article
+    $id = 0;
+} else {
+    $id = $_GET['id']; // Récupére l'id dans le lien "article_show.php?id=1"
+}
 
 $article = getArticle($pdo, $id); // Récupérer $_GET['id'] pour afficher l'article en fonction du lien
 // Soit $article sera un tableau, soit un booléen à "false" s'il n'a pas été trouvé
 
 // Test si la formulaire à bien été envoyé (donc s'il y a des données dans $_POST)
 if (!empty($_POST)) {
-    $_POST['title'] = strip_tags($_POST['title']);
-    $_POST['content'] = strip_tags($_POST['content'], '<p><a><img>'); // strip_tags($_POST['content'], '<p><a><strong>'); autorise seulement les balises entrées en paramètre
+    $_POST['title'] = trim(strip_tags($_POST['title']));
+    $_POST['content'] = trim(strip_tags($_POST['content'], '<p><a><img>')); // strip_tags($_POST['content'], '<p><a><strong>'); autorise seulement les balises entrées en paramètre
     array_map('trim', $_POST); // Execute la fonction "trim" pour tous les éléments d'un tableau
 
     if (strlen($_POST['title']) < 3) { // Génére une erreur si longueur de title < 3
@@ -27,10 +32,15 @@ if (!empty($_POST)) {
 
     // Test s'il n'y a pas d'erreur
     if (empty($errors)) {
-        if (0 == $id && addArticle($pdo, $_POST['title'], $_POST['content'])) { // On ajoute
-            header('Location: article_list.php');
-        } elseif (editArticle($pdo, $id, $_POST['title'], $_POST['content'])) { // On modifie
-            header('Location: article_list.php');
+        if (0 == $id) { // On ajoute
+            // la fonction addArticle retourne un booléen, il est possible de l'appeler dans une condition
+            if (addArticle($pdo, $_POST['title'], $_POST['content'])) {
+                header('Location: article_list.php');
+            }
+        } else { // On modifie
+            if (editArticle($pdo, $id, $_POST['title'], $_POST['content'])) {
+                header('Location: article_list.php');
+            }
         }
 
         $errors['global'] = "Un erreur est survenue, votre article n'a pas pu être enregistré";

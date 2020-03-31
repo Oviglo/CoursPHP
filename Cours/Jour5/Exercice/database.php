@@ -91,3 +91,17 @@ function editArticle($pdo, $id, $title, $content)
 /*
  * Ajoute un article
  */
+function addArticle($pdo, $title, $content)
+{
+    // ETAPE 1 ecrire la requête en dure et la tester dans phpMyAdmin
+    // INSERT INTO article (title, content, date_create) VALUES ('Titre test', 'Contenu test', CURRENT_DATE());
+
+    // ETAPE 2 écrire la requête dans la fonction $pdo->prepare
+    // Puis remplacer les valeurs par des variables
+    $request = $pdo->prepare('INSERT INTO article (title, content, date_create) 
+    VALUES (:title, :content, CURRENT_DATE())');
+    $request->bindValue(':title', $title);
+    $request->bindValue(':content', $content);
+
+    return $request->execute();
+}
