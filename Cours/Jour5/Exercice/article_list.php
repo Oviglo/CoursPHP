@@ -47,6 +47,9 @@ $articles = getArticles($pdo);
                             <a class="btn btn-secondary" href="article_edit.php?id=<?=$article['id']; ?>">
                                 Modifier    
                             </a>
+                            <a class="btn btn-danger" href="article_delete.php?id=<?=$article['id']; ?>">
+                                Supprimer  
+                            </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

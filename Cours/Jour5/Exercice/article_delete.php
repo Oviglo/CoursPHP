@@ -13,6 +13,13 @@
     if (false === $article) {
         header('Location: article_list.php');
     }
+
+    // Si le formulaire a été envoyé
+    if (isset($_POST['delete'])) {
+        deleteArticle($pdo, $_GET['id']);
+
+        header('Location: article_list.php');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

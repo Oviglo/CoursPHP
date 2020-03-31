@@ -5,7 +5,7 @@ require_once './../src/common.php';
 // On récupére la valeur GET "p" qui se trouve dans le lien
 $page = $_GET['p'] ?? 'accueil';
 
-// S'il y a la chaine "admin_" dans cette variable
+// S'il y a la chaine "admin" dans cette variable
 if (false !== strpos($page, 'admin')) {
     $page = substr($page, 6); // On supprime "admin_" de la chaîne
     checkAdmin(); // Test si l'utilisateur est administrateur
