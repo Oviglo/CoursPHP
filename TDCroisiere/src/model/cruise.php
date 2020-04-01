@@ -9,9 +9,17 @@ function searchCruise($destinationId, $dateDeparture)
     // Problème quand $destinationId est vide on veut toutes les croisières
     // SELECT * FROM cruise WHERE date_departure >= :dateDeparture
 
-    $queryStr = 'SELECT * FROM cruise WHERE date_departure >= :dateDeparture';
+    // Requête avec jointure
+    // SELECT c.date_departure, c.date_arrival, c.id, c.boat, d.name, d.photo FROM cruise AS c
+    // JOIN destination AS d ON d.id = c.destination_id WHERE ...
+
+    $queryStr = 'SELECT c.date_departure, c.date_arrival, c.id, c.boat, d.name, d.photo 
+    FROM cruise AS c
+    JOIN destination AS d ON d.id = c.destination_id 
+    WHERE c.date_departure >= :dateDeparture';
+
     if ($destinationId > 0) { // Fait la condition seulement si la recherche est sur une destination
-        $queryStr .= ' AND destination_id = :destinationId';
+        $queryStr .= ' AND c.destination_id = :destinationId';
         // SELECT * FROM cruise WHERE date_departure >= :dateDeparture AND destination_id = :destinationId
     }
 
