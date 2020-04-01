@@ -46,9 +46,11 @@ ob_start();
 <!-- div.card.form-frame>div.card-body>(div.form-group>input:text[name="username"])+(div.form-group>input:email[name="email"])+(div.form-group>input:password[name="password"])+button:submit.btn.btn-primary.btn-block --> 
 <div class="card form-frame">
     <div class="card-body">
+        
         <?php if (isset($errors['global'])): ?>
         <div class="alert alert-danger"><?=$errors['global']; ?></div>
         <?php endif; ?>
+
         <form action="" method="post" novalidate>
             <div class="form-group">
                 <input class="form-control <?=isset($errors['username']) ? 'is-invalid' : ''; ?>" placeholder="Nom d'utilisateur" type="text" name="username" value="<?=$username; ?>">
