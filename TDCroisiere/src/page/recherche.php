@@ -18,6 +18,7 @@ ob_start();
 <?php else: ?>
 <p>Nous n'avons pas trouvé de résultat</p>
 <?php endif; ?>
+
 <?php foreach ($cruises as $cruise) : ?>
 <div class="card my-2">
     <div class="card-body">
