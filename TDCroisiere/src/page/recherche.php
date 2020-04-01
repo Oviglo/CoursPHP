@@ -6,7 +6,8 @@ $title = 'Rechercher';
 if (isset($_GET['destination']) && isset($_GET['date'])) {
     array_map('trim', $_GET); // retirer les espaces de tous les éléments du tableau
 
-    $cruises = searchCruise($_GET['date'], $_GET['destination']);
+    $cruises = searchCruise($_GET['destination'], $_GET['date']);
+    var_dump($cruises);
 }
 
 ob_start();
