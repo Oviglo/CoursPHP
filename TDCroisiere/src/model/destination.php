@@ -13,3 +13,17 @@ function getAllDestinations()
 
     return $request->fetchAll(); // retourne tous les résultats
 }
+
+/**
+ * Retourne une destination.
+ */
+function getOneDestination(int $id)
+{
+    global $pdo;
+
+    $request = $pdo->prepare('SELECT * FROM destination WHERE id = :id');
+    $request->bindValue(':id', $id, PDO::PARAM_INT);
+    $request->execute();
+
+    return $request->fetch();
+}
