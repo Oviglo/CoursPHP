@@ -19,7 +19,11 @@ if (!empty($_POST)) {
         $result = login($username, $password);
 
         if ('success' == $result['type']) {
+            // Génére un message qui sera affiché après la redirection
+            addFlashMessage('success', $result['message']);
+
             header('Location: index.php');
+            exit(); // Arrête le script
         }
 
         $errors['global'] = $result['message'];

@@ -45,9 +45,14 @@
             <!-- Affichage des messages flash -->
             <?php foreach (getFlashMessage() as $msg):
                 // Si le type est "error", ont le définis en "danger" (pour bootstrap)
-                $msg['type'] = 'error' == $msg['type'] ? 'danger' : $msg['type'];
+                $msg['type'] = (('error' == $msg['type']) ? 'danger' : $msg['type']);
             ?>
-            <div class="alert alert-<?=$msg['type']; ?>"><?=$msg['message']; ?></div>
+            <div class="alert alert-<?=$msg['type']; ?> alert-dismissible fade show">
+                <?=$msg['message']; ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <?php endforeach; ?>
             <?= $content; ?>
         </div>
