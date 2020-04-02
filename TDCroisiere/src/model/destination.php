@@ -37,6 +37,16 @@ function saveDestination(string $name, string $description, array $photo = [], i
     $name = trim(strip_tags($name));
     $description = trim(strip_tags($description, '<p><a><strong><hr>')); // Autorise seulement les balises en paramètre
 
+    /*
+    - Une fichier n'est envoyé depuis un formulaire seulement si la balise form contient l'attribut enctype="multipart/form-data"
+    - Une fois le formulaire envoyé, le fichier est stocké dans un dossier temporaire de php
+    - On récupère les informations de ces fichiers dans la superglobale $_FILES
+    - $_FILES va contenir le chemin temporaire du fichier
+    - Si le fichier est valide (le bon type de fichier), on déplace le fichier dans notre application
+    */
+    var_dump($_FILES);
+    exit();
+
     $photoUrl = '';
 
     global $pdo;

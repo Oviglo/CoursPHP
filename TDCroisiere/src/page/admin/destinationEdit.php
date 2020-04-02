@@ -22,12 +22,12 @@ ob_start();
 
 <?php require 'menu.php'; ?>
 
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     <div class="card">
         <div class="card-body">
             <div class="form-group">
                 <label for="name">Nom</label>
-                <input type="text" id="name" class="form-control" name="name" value="<?=$dest['name']; ?>">
+                <input type="text" id="name" class="form-control" name="name" value="<?=$dest['name']; ?>" required>
             </div>
 
             <div class="form-group">
