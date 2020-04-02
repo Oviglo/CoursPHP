@@ -62,6 +62,9 @@
         </div>
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
-        <script></script>
+        <script src="assets/js/bs-custom-file-input.min.js"></script>
+        <script>$(document).ready(function () {
+            bsCustomFileInput.init()
+        })</script>
     </body>
 </html>

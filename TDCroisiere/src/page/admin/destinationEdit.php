@@ -6,7 +6,7 @@ $id = $_GET['id'] ?? 0;
 $dest = getOneDestination($id);
 
 if (!empty($_POST)) {
-    $result = saveDestination($_POST['name'], $_POST['description'], [], $id);
+    $result = saveDestination($_POST['name'], $_POST['description'], [], $id, $dest['photo']);
 
     addFlashMessage($result['type'], $result['message']);
 

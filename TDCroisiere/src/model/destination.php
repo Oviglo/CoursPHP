@@ -32,7 +32,7 @@ function getOneDestination(int $id)
  * Enregistre une destination.
  * Si id n'est pas défini: on ajoute, sinon on modifie.
  */
-function saveDestination(string $name, string $description, array $photo = [], int $id = 0)
+function saveDestination(string $name, string $description, array $photo = [], int $id = 0, string $oldPhotoUrl = null)
 {
     $name = trim(strip_tags($name));
     $description = trim(strip_tags($description, '<p><a><strong><hr>')); // Autorise seulement les balises en paramètre
@@ -43,11 +43,19 @@ function saveDestination(string $name, string $description, array $photo = [], i
     - On récupère les informations de ces fichiers dans la superglobale $_FILES
     - $_FILES va contenir le chemin temporaire du fichier
     - Si le fichier est valide (le bon type de fichier), on déplace le fichier dans notre application
-    */
-    var_dump($_FILES);
-    exit();
+    $_FILES['photo']['name']: Nom du fichier envoyé (nom original)
+    $_FILES['photo']['type']: Le type du fichier (exemple: image/png)
+    $_FILES['photo']['size']: La taille du fichier en octets
+    $_FILES['photo']['tmp_name']: Le nom temporaire du fichier chargé sur le serveur
+    $_FILES['photo']['error']: Eventuelle erreur
 
-    $photoUrl = '';
+    */
+    $photoUrl = $oldPhotoUrl;
+    if (UPLOAD_ERR_OK == $_FILES['photo']['error']) { // Il y a pas eu une erreur lors de l'envoi du fichier
+        // Met le lien de la photo pour l'enregistrer dans la base de données
+        // uniqid généré une chaine aléatoire
+        $photoUrl = 'uploads/'.uniqid().$_FILES['photo']['name'];
+    }
 
     global $pdo;
 
@@ -66,6 +74,17 @@ function saveDestination(string $name, string $description, array $photo = [], i
     $request->bindValue(':photo', $photoUrl);
 
     if ($request->execute()) { // La requête n'a pas d'erreur
+        // Si la variable $photoUrl n'est pas la même que $oldPhotoUrl
+        if ($photoUrl != $oldPhotoUrl) {
+            // Si l'ancienne photo existe
+            if (file_exists($oldPhotoUrl)) {
+                rmdir($oldPhotoUrl); // Supprime l'ancienne photo
+            }
+            // On déplace le fichier temporaire dans le lien généré "uploads/nom_du_fichier"
+            move_uploaded_file($_FILES['photo']['tmp_name'], $photoUrl);
+            // copy();
+        }
+
         return ['type' => 'success', 'message' => 'La destination a bien été enregistrée'];
     }
 

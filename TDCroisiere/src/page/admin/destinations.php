@@ -26,7 +26,11 @@ ob_start();
         <tbody>
             <?php foreach ($destinations as $dest): ?>
             <tr>
-                <td></td>
+                <td>
+                    <?php if (!empty($dest['photo'])):?>
+                    <img style="width:120px;" src="<?=$dest['photo']; ?>" alt="Photo"/>
+                    <?php endif; ?>
+                </td>
                 <td><?=$dest['name']; ?></td>
                 <td><?=substr($dest['description'], 0, 20); ?></td>
                 <td>
