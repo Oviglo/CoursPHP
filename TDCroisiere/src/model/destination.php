@@ -78,7 +78,7 @@ function saveDestination(string $name, string $description, array $photo = [], i
         if ($photoUrl != $oldPhotoUrl) {
             // Si l'ancienne photo existe
             if (file_exists($oldPhotoUrl)) {
-                rmdir($oldPhotoUrl); // Supprime l'ancienne photo
+                unlink($oldPhotoUrl); // Supprime l'ancienne photo
             }
             // On déplace le fichier temporaire dans le lien généré "uploads/nom_du_fichier"
             move_uploaded_file($_FILES['photo']['tmp_name'], $photoUrl);
