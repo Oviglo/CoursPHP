@@ -72,6 +72,7 @@ function login($username, $password)
 
     // Connexion
     // On va se souvenir de l'utilisateur, on enregistre dans des SESSION
+    // Il est impossible pour l'utilisateur de modifier une variable session
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['user_username'] = $user['username'];
     $_SESSION['user_admin'] = $user['admin'];
