@@ -32,6 +32,10 @@
                                 <?= $_SESSION['user_username']; ?>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="usermenu">
+                                    <!-- menu admin -->
+                                    <?php if (isset($_SESSION['user_admin']) && 1 == $_SESSION['user_admin']):?>
+                                        <a href="?p=admin_accueil" class="dropdown-item"><i class="fas fa-cogs"></i> Administration</a>
+                                    <?php endif; ?>
                                     <a href="?p=deconnexion" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Se déconnecter</a>    
                                 </div>
                             </li>

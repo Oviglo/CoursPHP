@@ -33,7 +33,9 @@ if (!empty($_POST)) {
         $result = addUser($username, $email, $password); // Ajoute l'utilisateur
 
         if ('success' == $result['type']) { // L'utilisateur a bien été ajouté
+            addFlashMessage('success', $result['message']);
             header('Location: index.php');
+            exit();
         }
 
         $errors['global'] = $result['message'];

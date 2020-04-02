@@ -10,7 +10,7 @@ $page = $_GET['p'] ?? 'accueil';
 
 // Les expressions régulière permettent de tester le format d'une chaîne
 // Test si $page contient d'autres caractère que des lettres en minuscule et majuscule
-if (!preg_match('/^[a-zA-Z]*$/', $page)) {
+if (!preg_match('/^[a-zA-Z_]*$/', $page)) {
     $page = 'accueil';
 }
 
