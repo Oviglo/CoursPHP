@@ -8,6 +8,11 @@ ob_start();
 ?>
 <h1><?=$title; ?></h1>
 <?php require_once 'menu.php'; ?>
+<div class="d-flex justify-content-end mb-2">
+    <a href="index.php?p=admin_destinationEdit" class="btn btn-success">
+        <i class="fas fa-plus"></i> Ajouter une destination
+    </a>
+</div>
 <div class="table-responsive">
     <table class="table">
         <thead class="thead-dark">

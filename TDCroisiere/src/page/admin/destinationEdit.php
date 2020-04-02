@@ -2,28 +2,37 @@
 
 $title = 'Modifier une destination';
 
-$id = $_GET['id'];
+$id = $_GET['id'] ?? 0;
 $dest = getOneDestination($id);
 
-var_dump($dest);
+if (!empty($_POST)) {
+    $result = saveDestination($_POST['name'], $_POST['description'], [], $id);
+
+    addFlashMessage($result['type'], $result['message']);
+
+    if ('success' == $result['type']) {
+        header('Location: index.php?p=admin_destinations');
+        exit(); // Quitte ce script PHP
+    }
+}
 
 ob_start();
 ?>
 <h1><?=$title; ?></h1>
+
 <?php require 'menu.php'; ?>
+
 <form action="" method="post">
     <div class="card">
         <div class="card-body">
             <div class="form-group">
                 <label for="name">Nom</label>
-                <input type="text" id="name" class="form-control" name="name">
+                <input type="text" id="name" class="form-control" name="name" value="<?=$dest['name']; ?>">
             </div>
 
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea name="description" id="description" cols="30" rows="10" class="form-control">
-
-                </textarea>
+                <textarea name="description" id="description" cols="30" rows="10" class="form-control"><?=$dest['description']; ?></textarea>
             </div>
 
             <div class="form-group">
