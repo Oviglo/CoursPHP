@@ -15,3 +15,4 @@ function checkAdmin()
 }
 
 require_once 'model/database.php';
+require_once 'flashMessage.php';
