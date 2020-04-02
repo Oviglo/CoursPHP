@@ -25,7 +25,9 @@ ob_start();
                 <td><?=$dest['name']; ?></td>
                 <td><?=substr($dest['description'], 0, 20); ?></td>
                 <td>
-                    <a class="btn btn-secondary" href="?p=admin_destinationEdit"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-secondary" href="index.php?p=admin_destinationEdit&id=<?=$dest['id']; ?>">
+                        <i class="fas fa-edit"></i>
+                    </a>
                 </td>
             </tr>
             <?php endforeach; ?>
