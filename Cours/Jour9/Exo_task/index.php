@@ -8,6 +8,7 @@
     - Créer une page addTask.php qui contient un formulaire pour ajouter une tâche (champ textarea)
     - Afficher toutes les tâches dans index.php
     - Ajouter un bouton "Fait" qui redirige vers un script checkTask.php pour modifier la tâche et mettre checked à 1
+    - Ajouter une formulaire de recherche (input:text) au dessus de la liste des tâches (index.php) pour faire une recherche dans le content (LIKE)
 */
 
 require_once 'database.php';
@@ -38,6 +39,11 @@ $tasks = getAllTasks();
                     <?=$t['content']; ?>
                 </p>
             </div>
+            <?php if (0 == $t['checked']):?>
+            <div class="card-footer text-right">
+                <a class="btn btn-primary" href="checkTask.php?id=<?=$t['id']; ?>">Marqué comme fait</a>
+            </div>
+            <?php endif; ?>
         </div>
         <?php endforeach; ?>
 

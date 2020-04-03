@@ -26,3 +26,16 @@ function getAllTasks()
 
     return $request->fetchAll();
 }
+
+/**
+ * Modifie une tâche en mettant checked à 1.
+ */
+function checkTask($id)
+{
+    // UPDATE task SET checked = 1 WHERE id = :id
+    global $pdo;
+    $request = $pdo->prepare('UPDATE task SET checked = 1 WHERE id = :id');
+    $request->bindValue(':id', $id, PDO::PARAM_INT);
+
+    return $request->execute();
+}
