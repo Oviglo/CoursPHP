@@ -9,6 +9,11 @@
     - Afficher toutes les tâches dans index.php
     - Ajouter un bouton "Fait" qui redirige vers un script checkTask.php pour modifier la tâche et mettre checked à 1
 */
+
+require_once 'database.php';
+
+$tasks = getAllTasks();
+// var_dump($tasks);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +24,24 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="addTask.php">Ajouter une tâche</a>
+    <div class="container">
+        <h1>Liste des tâches</h1>
+        <hr/>
+        <a href="addTask.php" class="btn btn-success">Ajouter une tâche</a>
+        <?php foreach ($tasks as $t): ?>
+        <div class="card mt-2">
+            <div class="card-body">
+                <span class="badge badge-secondary">
+                    <?=date_format(date_create($t['date_create']), 'd/m/Y'); ?>
+                </span>
+                <p>
+                    <?=$t['content']; ?>
+                </p>
+            </div>
+        </div>
+        <?php endforeach; ?>
+
+    </div>
+    
 </body>
 </html>
