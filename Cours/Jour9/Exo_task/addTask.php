@@ -11,12 +11,18 @@ if (!empty($_POST)) { // if (!isset($_POST['content'])) {}
         $error = 'Le contenu est trop court';
     } else {
         $result = addTask($_POST['content']);
-        if (!$result) {
+        /*if (!$result) {
             $error = 'Une erreur est survenue';
         } else {
             header('Location: index.php');
             exit();
+        }*/
+        if ($result) {
+            header('Location: index.php');
+            exit();
         }
+
+        $error = 'Une erreur est survenue';
     }
 }
 
