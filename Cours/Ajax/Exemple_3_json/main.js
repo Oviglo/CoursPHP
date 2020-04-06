@@ -11,8 +11,28 @@ refreshButton.onclick = function () {
             // Transforme la chaine contenant le JSON en objet js (facile à lire)
             let jsonData = JSON.parse(this.responseText);
             console.log(jsonData);
+
+            jsonData.forEach(function (article) {
+                console.log(article);
+                // Crée un élément div
+                let articleDiv = document.createElement('div');
+                articleDiv.innerHTML = '<h2>' + article.title + '</h2>';
+                lastNews.appendChild(articleDiv);
+
+            });
         }
     };
 
     xhttp.send();
 };
+
+/*
+avec jQuery
+
+$.getJSON('lastNews.php', function(data){
+    // data est automatiquement convertit en objet js
+    data.forEach(function(article){
+
+    });
+});
+*/

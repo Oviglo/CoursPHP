@@ -53,7 +53,10 @@ ob_start();
         <div class="alert alert-danger"><?=$errors['global']; ?></div>
         <?php endif; ?>
 
-        <form action="" method="post" novalidate>
+        <!-- Erreur Ajax --> 
+        <div class="alert alert-danger" style="display:none;" id="ajax-error"></div>
+
+        <form action="" method="post" id="registration-form" novalidate>
             <div class="form-group">
                 <input class="form-control <?=isset($errors['username']) ? 'is-invalid' : ''; ?>" placeholder="Nom d'utilisateur" type="text" name="username" value="<?=$username; ?>">
                 <?php if (isset($errors['username'])): ?>
