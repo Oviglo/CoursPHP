@@ -41,7 +41,9 @@ ob_start();
         <div class="alert alert-danger"><?=$errors['global']; ?></div>
         <?php endif; ?>
 
-        <form action="" method="post" novalidate>
+        <div class="alert alert-danger" id="ajax-error" style="display:none;"></div>
+
+        <form action="" method="post" novalidate id="login-form">
             <div class="form-group">
                 <input class="form-control" placeholder="Nom d'utilisateur" type="text" name="username" value="<?=$username; ?>">
             </div>

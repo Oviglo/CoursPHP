@@ -39,3 +39,40 @@ function checkUser() {
 
 $username.keyup(debounce(checkUser, 1000));
 $email.keyup(debounce(checkUser, 1000));
+
+/*
+Connexion en AJAX
+Faire un test de connexion d'utilisateur en utilisant AJAX
+- créer un fichier php ajax/login.php qui retourne un résultat en JSON
+- ajouter une balise html dans le formulaire de connexion qui va afficher les erreurs
+- ne pas oublier d'ajouter un id au formulaire pour le différencier des autres
+- on utilisera l'événement submit pour faire la requête ajax
+- Si la connexion a fonctionné on redirige vers index.php (document.location.href = "index.php";)
+
+$form.submit(function(){
+
+    return false; // On indique au navigateur de ne pas envoyer le formulaire lui-même
+});
+*/
+let $form = $('#login-form');
+$form.submit(function () {
+    // console.log("Envoi du formulaire");
+
+    // Requête ajax en method POST, dataType json
+    $.ajax({
+        method: "POST",
+        url: "../src/ajax/login.php",
+        dataType: "json",
+        data: $form.serialize(), // Envoi toutes les données du formulaire
+        success: function (data) {
+            if (data.type == "error") {
+                $('#ajax-error').html(data.message).show();
+            } else {
+                // redirection vers index.php
+                document.location.href = "index.php";
+            }
+        }
+    });
+
+    return false;
+});
