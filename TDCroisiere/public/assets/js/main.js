@@ -76,3 +76,30 @@ $form.submit(function () {
 
     return false;
 });
+
+$(function () {
+    // requête ajax
+    $.getJSON('../src/ajax/destinations.php', function (data) {
+        data.forEach(function (dest) {
+            console.log(dest);
+            let $div = $('<div class="card"></div>');
+            $div.append('<h2>' + dest.name + '</h2>');
+
+            $('#destinations').append($div);
+        });
+    });
+});
+
+// Vanilla
+let xhttp = new XMLHttpRequest;
+xhttp.open('GET', '../src/ajax/destinations.php');
+xhttp.onload = function () {
+    let data = JSON.parse(xhttp.responseText);
+    data.forEach(function (dest) {
+        let destDiv = document.createElement('div');
+        destDiv.innerHTML = '<h2>' + dest.name + '</h2>';
+
+        document.getElementById('destinations').appendChild(destDiv);
+    });
+};
+xhttp.send();

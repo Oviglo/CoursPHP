@@ -64,6 +64,10 @@ ob_start(); // Commence à enregistrer le code html
         </div>
         <hr/>
         <?php endif; ?>
+        <!-- Requête AJAX sur les destinations --> 
+        <div id="destinations">
+            
+        </div>
     </div>
 </div>
 <?php $content = ob_get_clean(); // Stock tout le code html enregistré dans la variable $content?>
