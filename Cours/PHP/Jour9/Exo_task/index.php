@@ -13,7 +13,13 @@
 
 require_once 'database.php';
 
-$tasks = getAllTasks();
+if (isset($_GET['search'])) {
+    $_GET['search'] = trim($_GET['search']);
+    $tasks = searchTasks($_GET['search']);
+} else {
+    $tasks = getAllTasks();
+}
+
 // var_dump($tasks);
 ?>
 <!DOCTYPE html>
@@ -29,6 +35,14 @@ $tasks = getAllTasks();
         <h1>Liste des tâches</h1>
         <hr/>
         <a href="addTask.php" class="btn btn-success">Ajouter une tâche</a>
+        <form class="my-2 form-inline" method="GET" action="">
+        <div class="input-group mb-3">
+            <input type="text" name="search" class="form-control" placeholder="Recherche" aria-label="Recherche" aria-describedby="search">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" id="search">Rechercher</button>
+            </div>
+        </div>
+        </form>
         <?php foreach ($tasks as $t): ?>
         <div class="card mt-2">
             <div class="card-body">

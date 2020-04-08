@@ -39,3 +39,16 @@ function checkTask($id)
 
     return $request->execute();
 }
+
+/**
+ * Recherche une tâche.
+ */
+function searchTasks($search)
+{
+    global $pdo;
+    $request = $pdo->prepare('SELECT * FROM task WHERE content LIKE :search');
+    $request->bindValue(':search', '%'.$search.'%');
+    $request->execute();
+
+    return $request->fetchAll();
+}
