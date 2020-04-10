@@ -43,6 +43,9 @@ if (isset($_GET['search'])) {
             </div>
         </div>
         </form>
+        <?php if (empty($tasks)): ?>
+            <div class="alert alert-warning">Aucun resultat</div>
+        <?php endif; ?>
         <?php foreach ($tasks as $t): ?>
         <div class="card mt-2">
             <div class="card-body">

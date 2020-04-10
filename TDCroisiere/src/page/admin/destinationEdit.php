@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @var string Titre de la page
+*/
 $title = 'Modifier une destination';
 
 $id = $_GET['id'] ?? 0;

@@ -16,6 +16,10 @@ function getAllDestinations()
 
 /**
  * Retourne une destination.
+ *
+ * @param int $id Id de la destination
+ *
+ * @return array
  */
 function getOneDestination(int $id)
 {
