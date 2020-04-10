@@ -18,3 +18,12 @@ function addCar($brand, $model, $description)
 
     return $result;
 }
+
+function getAllCars()
+{
+    global $pdo;
+
+    $request = $pdo->query('SELECT * FROM car ORDER BY id DESC');
+
+    return $request->fetchAll();
+}

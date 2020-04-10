@@ -8,7 +8,7 @@ if (!empty($_POST)) {
     array_map('trim', $_POST);
     array_map('strip_tags', $_POST);
 
-    if (strlen($_POST['model']) < 5) {
+    if (strlen($_POST['model']) < 2) {
         $error = 'Le nom du modèle est trop court';
     }
 
@@ -19,18 +19,9 @@ if (!empty($_POST)) {
         $error = 'Une erreur est survenue';
     }
 }
-
+include 'head.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <title>Document</title>
-</head>
-<body>
-    <div class="container">
+
         <h1>Ajouter une voiture</h1>
         <?php if (!empty($error)): ?>
         <div class="alert alert-danger"><?=$error; ?></div>
