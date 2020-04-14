@@ -26,7 +26,7 @@ class Arbre
      */
     public function setNom($nom)
     {
-        $this->nom = $nom;
+        $this->nom = trim($nom);
 
         return $this;
     }
