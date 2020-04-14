@@ -4,6 +4,7 @@
     Par convention le nom des classes doit commancer par une lettre majuscule et écrite en CamelCase
     Une classe est définie dans un fichier qui a le même nom class Article => Article.php
 */
+require_once 'Category.php';
 
 /**
  * Gestion des articles.
@@ -25,6 +26,11 @@ class Article
     // Propriété statique
     // Sa valeur sera partagée entre tous les objets
     public static $count = 0;
+
+    /**
+     * @var Category
+     */
+    private $category;
 
     // Constructeur de l'objet appelé lors de l'instanciation (new)
     // Permet d'initialiser des propriétés, il peut demander des attributs obligatoire pour le bon fonctionnement de l'objet
@@ -53,7 +59,9 @@ class Article
     public function formatTitle()
     {
         // Attention, ne pas mettre de $ entre la flèche et le nom de proprieté
-        return '<h2>'.$this->title.'</h2>';
+        // $this->category->getName() appel la fonction getName de l'objet category
+        // $this->category doit obligatoirement retourner un objet Category
+        return '<h2>'.$this->title.'('.$this->category->getName().')</h2>';
     }
 
     /**
@@ -76,5 +84,29 @@ class Article
     public static function getCount()
     {
         return self::$count;
+    }
+
+    /**
+     * Get the value of category.
+     *
+     * @return Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set the value of category.
+     *
+     * @param Category $category
+     *
+     * @return self
+     */
+    public function setCategory(Category $category)
+    {
+        $this->category = $category;
+
+        return $this;
     }
 }

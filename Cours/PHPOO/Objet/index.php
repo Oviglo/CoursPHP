@@ -20,6 +20,12 @@ $article2 = new Article('Aller plus loin avec Symfony');
 // title passe ne private, obligé de passer par les accesseurs (getter, setter)
 $article2->setTitle('      <strong>Aller plus loin avec Symfony</strong>      ');
 
+// Ajout d'une category
+$category = new Category('Dev');
+// On ne peut pas envoyer autre choses qu'un objet catégorie grâce au typage
+$article1->setCategory($category);
+$article2->setCategory($category);
+
 // Le code source est commun aux 2 objets mias les valeurs des proprietés sont différentes
 echo $article1->getTitle();
 echo '<br/>';
@@ -34,3 +40,9 @@ $article1->status = Article::STATUS_PUBLIE;
 
 var_dump($article1->estPublie());
 var_dump(Article::$count);
+
+// Les setter retournent $this pour appeler les fonctions à la chaîne
+$article1
+    ->setCategory($category)
+    ->setTitle('OK')
+;

@@ -5,6 +5,8 @@
     - Ecrire le constructeur qui demande ces 3 proprietés pour formater les données cripter le mot de passe
     - Créer 2 utilisateurs sur cette page
     - Ecrire une méthode publique dans l'objet User qui test le mot de passe et retourne vrai ou faux
+
+    - Ecrire les getters et setters des propriétés (toujours avec test des données et criptage du password)
 */
 
 require_once 'User.php';
@@ -15,6 +17,8 @@ $obelix = new User('Obelix', 'lebonsanglier@taverne.fr', 'motDePasse');
 // $obelix->password = "passwordClair";
 
 var_dump($asterix);
+
+$asterix->setPassword('nouveaupassword');
 
 if ($asterix->testPassword('123Azerty')) {
     echo 'Mot de passe valide';
