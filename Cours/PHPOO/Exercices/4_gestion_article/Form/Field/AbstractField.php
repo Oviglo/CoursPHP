@@ -19,8 +19,13 @@ abstract class AbstractField
      */
     protected $attr;
 
+    /**
+     * @var string
+     */
+    protected $value;
+
     // Fonction pour générer le code html du champ (input, select, button etc.)
-    abstract public function fieldView();
+    abstract protected function fieldView();
 
     public function __construct(string $name, string $label = '', array $attr = [])
     {
@@ -112,6 +117,30 @@ abstract class AbstractField
     public function setAttr(array $attr)
     {
         $this->attr = $attr;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of value.
+     *
+     * @return string
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Set the value of value.
+     *
+     * @param string $value
+     *
+     * @return self
+     */
+    public function setValue(string $value)
+    {
+        $this->value = $value;
 
         return $this;
     }

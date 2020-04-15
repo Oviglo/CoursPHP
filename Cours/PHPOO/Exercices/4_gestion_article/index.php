@@ -18,8 +18,12 @@
 spl_autoload_register();
 
 use Form\Form;
+use Form\Field\Text;
 
 $form = new Form('article');
+
+$text = new Text('title', 'Titre');
+var_dump($text->createView());
 
 ?>
 <!DOCTYPE html>
