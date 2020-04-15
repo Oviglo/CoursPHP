@@ -7,6 +7,8 @@ class Outil
      */
     protected $nom;
 
+    public static $dernier = '';
+
     /**
      * @var DateTime
      */
@@ -69,5 +71,11 @@ class Outil
     public function toString()
     {
         return 'Outil '.$this->nom;
+    }
+
+    // Fonction globale à tous les outil, peut être appelée créer d'objet Outil
+    public static function utiliser(Outil $outil)
+    {
+        self::$dernier = $outil->getNom();
     }
 }

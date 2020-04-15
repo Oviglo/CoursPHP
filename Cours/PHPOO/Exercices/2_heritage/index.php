@@ -28,5 +28,9 @@ if ($scie instanceof Outil) {
 echo '<p>'.$outil->toString().'</p>';
 echo '<p>'.$scie->toString().'</p>';
 
-Outils::Utiliser($outil);
-echo Outils::$dernier;
+//Outil::Utiliser($outil);
+echo 'Dernier outil utilisé:'.Outil::$dernier.'<br/>';
+Outil::utiliser($scie);
+echo 'Dernier outil utilisé:'.Outil::$dernier.'<br/>';
+Outil::utiliser($outil);
+echo 'Dernier outil utilisé:'.Outil::$dernier.'<br/>';
