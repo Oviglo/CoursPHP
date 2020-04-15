@@ -2,6 +2,8 @@
 
 namespace Form;
 
+use Form\Field\AbstractField;
+
 class Form
 {
     /**
@@ -13,6 +15,11 @@ class Form
      * @var string
      */
     private $action;
+
+    /**
+     * @var array
+     */
+    private $fields = [];
 
     public function __construct(string $name, string $action = '')
     {
@@ -68,10 +75,22 @@ class Form
         return $this;
     }
 
+    /**
+     * Ajoute un champ au formulaire.
+     */
+    public function addField(AbstractField $field)
+    {
+        // Ajoute un objet champ
+        $this->fields[] = $field;
+    }
+
     public function createView()
     {
         $html = '<form name="'.$this->name.'" action="'.$this->action.'" method="post">';
-        // Code html des champs
+        // TODO  Ajouter le code html des champs
+        foreach ($this->fields as $field) {
+            $html .= $field->createView();
+        }
 
         $html .= '</form>';
 
