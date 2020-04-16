@@ -26,4 +26,14 @@ class ArticleManager extends AbstractManager
             trigger_error($error[2], E_USER_WARNING);
         }
     }
+
+    public function findAll()
+    {
+        $request = self::$pdo->query('SELECT * FROM article ORDER BY id DESC');
+
+        // Premier paramètre indique que PDO doit mettre les résultats sous forme d'objet
+        // Deuxième paramètre indique quelle classe PDO doit utiliser
+        // Article::class retourne une chaine contenent le nom de la classe avec sont espace de nom ("Entity\Article")
+        return $request->fetchAll(\PDO::FETCH_CLASS, Article::class);
+    }
 }
