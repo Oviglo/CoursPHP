@@ -16,6 +16,22 @@ class Select extends AbstractField
         parent::__construct($name, $label, $attr);
     }
 
+    protected function fieldView()
+    {
+        $html = '<select class="form-control" name="'.$this->name.'">';
+
+        foreach ($this->options as $key => $value) {
+            // $isSelected seras un booléen qui indique si l'option doit être sélectionnée
+            $isSelected = ($value == $this->value);
+
+            $html .= '<option value="'.$value.'" '.($isSelected ? 'selected' : '').' >'.$key.'</option>';
+        }
+
+        $html .= '</select>';
+
+        return $html;
+    }
+
     /**
      * Get the value of options.
      *

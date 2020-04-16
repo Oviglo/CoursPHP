@@ -19,13 +19,22 @@ spl_autoload_register();
 
 use Form\Form;
 use Form\Field\Text;
+use Form\Field\Textarea;
+use Form\Field\Select;
 use Form\Field\Submit;
+
+$categories = [
+    'Programmation' => 'programmation',
+    'Infographie' => 'infographie',
+    'Hardware' => 'hardware',
+];
 
 $form = new Form('article');
 
 $form->addField(new Text('title', 'Titre'));
-$form->addField(new Text('description', "Description de l'article"));
-$form->addField(new Submit('submit'));
+$form->addField(new Select('category', $categories, 'Categorie'));
+$form->addField(new Textarea('content', 'Contenu'));
+$form->addField(new Submit('submit', "Enregistrer l'article"));
 
 ?>
 <!DOCTYPE html>
