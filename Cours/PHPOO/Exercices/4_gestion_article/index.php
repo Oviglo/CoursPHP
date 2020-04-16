@@ -17,6 +17,17 @@
 // Autoload sans fonction: on laisse PHP charger tout seul le fichier
 spl_autoload_register();
 
+// Test Article
+use Manager\ArticleManager;
+use Entity\Article;
+/*$article = new Article();
+$article->setTitle('Mon super article');
+$article->setContent('Contenu');
+$article->setCategory('PHP');
+
+$articleManager = new ArticleManager();
+$articleManager->save($article);*/
+
 use Form\Form;
 use Form\Field\Text;
 use Form\Field\Textarea;
