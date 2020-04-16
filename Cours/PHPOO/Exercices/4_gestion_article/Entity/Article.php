@@ -12,17 +12,17 @@ class Article
     /**
      * @var string
      */
-    private $title;
+    private $title = '';
 
     /**
      * @var string
      */
-    private $content;
+    private $content = '';
 
     /**
      * @var string
      */
-    private $category;
+    private $category = '';
 
     /**
      * Get the value of id.

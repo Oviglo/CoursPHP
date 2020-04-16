@@ -24,6 +24,7 @@ $articles = $articleManager->findAll();
     <div class="container">
         <h1>Gestion des articles</h1>
         <a href="article_edit.php" class="btn btn-success mb-2">Ajouter une article</a>
+        <a href="category_list.php" class="btn btn-light mb-2">Gestion des catégories</a>
         <table class="table">
             <thead class="thead-dark">
                 <tr>

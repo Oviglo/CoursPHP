@@ -25,6 +25,7 @@ use Form\Field\Text;
 use Form\Field\Textarea;
 use Form\Field\Select;
 use Form\Field\Submit;
+use Manager\CategoryManager;
 
 $article = new Article();
 $article->setTitle('');
@@ -45,31 +46,25 @@ if (!empty($_POST)) {
     exit();
 }
 
-$categories = [
-    'Programmation' => 'programmation',
-    'Infographie' => 'infographie',
-    'Hardware' => 'hardware',
-];
+$categoryManager = new CategoryManager();
+$categories = $categoryManager->findAll();
+
+$catSelect = [];
+foreach ($categories as $c) {
+    $catSelect[$c->getName()] = $c->getName();
+}
 
 $form = new Form('article');
 // Les données de mon form proviennent de l'objet Article
 $form->setData($article);
 
 $form->addField(new Text('title', 'Titre'));
-$form->addField(new Select('category', $categories, 'Categorie'));
+$form->addField(new Select('category', $catSelect, 'Categorie'));
 $form->addField(new Textarea('content', 'Contenu'));
 $form->addField(new Submit('submit', "Enregistrer l'article"));
 
+require_once 'include/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <title>Document</title>
-</head>
-<body>
     <div class="container">
         <h1>Gestion des articles</h1>
         <?=$form->createView(); ?>

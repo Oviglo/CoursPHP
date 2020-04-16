@@ -138,7 +138,7 @@ abstract class AbstractField
      *
      * @return self
      */
-    public function setValue(string $value)
+    public function setValue($value)
     {
         $this->value = $value;
 
