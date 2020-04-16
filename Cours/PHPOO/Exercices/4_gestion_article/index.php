@@ -20,13 +20,22 @@ spl_autoload_register();
 // Test Article
 use Manager\ArticleManager;
 use Entity\Article;
-/*$article = new Article();
+
+$article = new Article();
 $article->setTitle('Mon super article');
 $article->setContent('Contenu');
-$article->setCategory('PHP');
+$article->setCategory('infographie');
 
 $articleManager = new ArticleManager();
-$articleManager->save($article);*/
+
+// Envoi du formulaire
+if (!empty($_POST)) {
+    $article->setTitle($_POST['title']);
+    $article->setContent($_POST['content']);
+    $article->setCategory($_POST['category']);
+    // Enregistre dans la base de données
+    $articleManager->save($article);
+}
 
 use Form\Form;
 use Form\Field\Text;
@@ -41,6 +50,8 @@ $categories = [
 ];
 
 $form = new Form('article');
+// Les données de mon form proviennent de l'objet Article
+$form->setData($article);
 
 $form->addField(new Text('title', 'Titre'));
 $form->addField(new Select('category', $categories, 'Categorie'));
