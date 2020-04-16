@@ -19,11 +19,13 @@ spl_autoload_register();
 
 use Form\Form;
 use Form\Field\Text;
+use Form\Field\Submit;
 
 $form = new Form('article');
 
-$text = new Text('title', 'Titre');
-var_dump($text->createView());
+$form->addField(new Text('title', 'Titre'));
+$form->addField(new Text('description', "Description de l'article"));
+$form->addField(new Submit('submit'));
 
 ?>
 <!DOCTYPE html>
