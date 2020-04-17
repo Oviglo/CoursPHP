@@ -11,7 +11,7 @@
 */
 spl_autoload_register();
 
-$myCoffee = new CoffeeCup();
+$myCoffee = new CoffeeCup(25);
 $myCoffee->setQuantity(20);
 $myCoffee->setBrand('Malongo');
 $myCoffee->setTemperature(65);
