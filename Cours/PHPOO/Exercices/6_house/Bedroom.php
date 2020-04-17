@@ -42,4 +42,9 @@ class Bedroom extends Room
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return "Chambre de {$this->area}m² avec $this->windowCount fenêtre(s) et un lit $this->bedType";
+    }
 }

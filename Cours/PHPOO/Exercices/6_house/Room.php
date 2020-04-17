@@ -5,12 +5,12 @@ class Room
     /**
      * @var float
      */
-    private $area;
+    protected $area;
 
     /**
      * @var int
      */
-    private $windowCount;
+    protected $windowCount;
 
     public function __construct(float $area, int $windowCount = 0)
     {
@@ -64,5 +64,10 @@ class Room
         $this->windowCount = $windowCount;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return "Pièce de {$this->area}m² avec $this->windowCount fenêtre(s)";
     }
 }

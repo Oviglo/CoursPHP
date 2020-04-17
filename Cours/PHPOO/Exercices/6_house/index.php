@@ -34,3 +34,28 @@ echo $bedroom->getBedType();
  */
 echo '<hr/>';
 echo $bedroom;
+
+/*
+    ETAPE 4
+
+    - Ecrire une classe House qui va contenir un tableau de pièces
+    - propriété $rooms qui sera un array
+    - propriété $name string
+    - écrire une méthode addRoom pour ajouter une pièce dans le tableau
+*/
+/*class User
+{
+}
+
+$user = new User();*/
+$house = new House("Maison d'Aline");
+$house->addRoom($room);
+$house->addRoom($bedroom);
+//$house->addRoom($user);
+
+echo $house->getWindowCount();
+var_dump($house);
+
+/*
+ Classe Kitchen avec un tableau de chaîne qui contient l'équipement
+ */
