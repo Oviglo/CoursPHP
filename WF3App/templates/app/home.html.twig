@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<p>Hello <strong>{{ name }}</strong></p>
+
+{# intégration d'une card #}
+{% embed "decorators/_card.html.twig" with {'class': 'border-primary', 'header_class' : 'bg-primary text-light'} %}
+    {% block header %}
+    <span class="lead">A quoi sert ce site ?</span>
+    {% endblock %}
+
+    {% block body %}
+    <p>Ce site a pour but d'apprendre la programmation Symfony<p>
+    {% endblock %}
+
+{% endembed %}
+
+
+
+{% endblock %}

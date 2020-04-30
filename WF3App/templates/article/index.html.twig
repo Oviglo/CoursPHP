@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Liste des articles</h1>
+
+<div class="article-list">
+{% for article in articles %}
+    {% embed "decorators/_card.html.twig" with {'class': 'my-3'} %}
+    {% block header %}
+    <h3><a href="{{ path('app_article_show', {'id': article.id}) }}">{{ article.title }}</a></h3>
+    {% endblock %}
+
+    {% block body %}
+    {{ article.content }}
+    {% endblock %}
+
+    {% block footer %}
+        <i>{{ article.dateCreate|date('d/m/Y') }}</i>
+    {% endblock %}
+
+    {% endembed %}
+{% endfor %}
+
+{% include 'decorators/_pagination.html.twig' with {'route': 'app_article_index'} %}
+</div>
+
+
+{% endblock %}
