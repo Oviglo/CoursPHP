@@ -4,6 +4,7 @@
 
 namespace App\Controller;
 
+use App\Service\Zippopotamus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,5 +24,15 @@ class AppController extends AbstractController
         // Retourne le rendu d'une vue Twig
         // le deuxième paramètre sont les valeurs envoyées à la vue
         return $this->render('app/home.html.twig', ['name' => 'Pierre']);
+    }
+
+    /**
+     * @Route("/zippo/{postal}", requirements = {"id": "\d+"})
+     */
+    public function zippo(Zippopotamus $zippoService, string $postal): Response
+    {
+        return $this->render('app/zippo.html.twig', [
+            'result' => $zippoService->getPostalInfos($postal),
+        ]);
     }
 }
