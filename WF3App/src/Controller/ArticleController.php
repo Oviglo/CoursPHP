@@ -86,6 +86,9 @@ class ArticleController extends AbstractController
             // Enregistrement de l'objet (exécute la requête)
             $entityManager->flush();
 
+            // Générer un message flash
+            $this->addFlash('success', "L'article a bien été ajouté");
+
             // redirection
             return $this->redirectToRoute('app_article_index');
         }
