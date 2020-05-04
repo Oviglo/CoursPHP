@@ -7,9 +7,11 @@ use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 //Indique que toute les routes de ce controller vont commencer par "/article"
 /**
@@ -65,7 +67,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/new")
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
         // Il est possible d'obtenir le service entityManager comme ceci:
         // $entityManager = $this->getDoctrine()->getManager();
@@ -87,7 +89,7 @@ class ArticleController extends AbstractController
             $entityManager->flush();
 
             // Générer un message flash
-            $this->addFlash('success', "L'article a bien été ajouté");
+            $this->addFlash('success', $translator->trans('article.new.success', ['%title%' => $article->getTitle()]));
 
             // redirection
             return $this->redirectToRoute('app_article_index');
@@ -97,5 +99,48 @@ class ArticleController extends AbstractController
         return $this->render('article/new.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/{id}/edit", requirements = {"id": "\d+"})
+     */
+    public function edit(Request $request, EntityManagerInterface $entityManager, Article $article): Response
+    {
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            $this->addFlash('success', 'Article modifié');
+
+            return $this->redirectToRoute('app_article_index');
+        }
+        // Ne pas oublier de créer le fichier twig
+        return $this->render('article/edit.html.twig', ['article' => $article, 'form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/{id}/delete", requirements = {"id": "\d+"})
+     */
+    public function delete(Request $request, EntityManagerInterface $entityManager, Article $article): Response
+    {
+        // Crée un formulaire directement dans le controller
+        $form = $this->createFormBuilder()
+            ->add('delete', SubmitType::class, ['label' => 'Supprimer'])
+            ->getForm()
+        ;
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->remove($article); // Supprime l'article
+            $entityManager->flush();
+            $this->addFlash('success', 'Article supprimé');
+
+            return $this->redirectToRoute('app_article_index');
+        }
+        // Ne pas oublier de créer le fichier twig
+        return $this->render('article/delete.html.twig', [
+            'article' => $article,
+            'form' => $form->createView(), ]
+        );
     }
 }

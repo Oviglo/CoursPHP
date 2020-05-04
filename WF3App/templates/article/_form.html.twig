@@ -1,0 +1,14 @@
+{{ form_start(form) }} {# affiche la balise d'ouverture du form #}
+{% embed "decorators/_card.html.twig" %}
+    {% block body %}
+        {{ form_errors(form) }} {# Affiche les eventuelles erreurs #}
+        {{ form_row(form.title) }}
+        {{ form_row(form.published, {label_attr: {class: 'checkbox-custom'}}) }}
+        {{ form_row(form.difficulty) }}
+        {{ form_row(form.content) }}
+    {% endblock %}
+    {% block footer %}
+        {{ form_row(form.save) }} {# affiche le submit #}
+    {% endblock %}
+{% endembed %}
+{{ form_end(form) }} {# affiche la balise de fermeture du form #}

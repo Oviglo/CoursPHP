@@ -1,0 +1,7 @@
+article:
+  result_count: >-
+    {count, plural,
+      =0 {Aucun article trouvé}
+      one {Un seul article trouvé} 
+      other {# articles trouvés}
+    }

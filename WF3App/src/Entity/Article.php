@@ -48,6 +48,14 @@ class Article
     private $published;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     */
+    private $difficulty;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="text")
@@ -162,6 +170,30 @@ class Article
     public function setContent(string $content)
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of difficulty.
+     *
+     * @return int
+     */
+    public function getDifficulty()
+    {
+        return $this->difficulty;
+    }
+
+    /**
+     * Set the value of difficulty.
+     *
+     * @param int $difficulty
+     *
+     * @return self
+     */
+    public function setDifficulty(int $difficulty)
+    {
+        $this->difficulty = $difficulty;
 
         return $this;
     }

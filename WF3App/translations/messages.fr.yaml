@@ -1,0 +1,16 @@
+article:
+  list: Liste des articles
+  title: Titre de l'article
+  published: Publié
+  difficulty: Difficulté
+  easy: Facile
+  normal: Normale
+  hard: Difficile
+  difficulty_help: Quel est la difficulté de votre tuto ?
+  content: Contenu de l'article
+
+  new:
+    title: Ajouter un article
+    success: L'article "%title%" a bien été ajouté
+
+save: Enregistrer
