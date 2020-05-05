@@ -35,6 +35,13 @@ class Builder
             $menu->addChild('menu.admin', ['route' => 'app_app_home']);
         }
 
+        // Ajout de menu "Se connecter" ou "Se déconnecter"
+        if ($this->security->isGranted('ROLE_USER')) {
+            $menu->addChild('menu.logout', ['route' => 'app_logout']);
+        } else {
+            $menu->addChild('menu.login', ['route' => 'app_login']);
+        }
+
         return $menu;
     }
 }

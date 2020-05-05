@@ -1,6 +1,8 @@
 menu:
   articles: Articles
   admin: Administration
+  login: Se connecter
+  logout: Se déconnecter
 
 article:
   list: Liste des articles
