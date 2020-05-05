@@ -42,6 +42,8 @@ class ArticleVoter extends Voter
 
         switch ($attribute) {
             case 'edit':
+                //return false; // TEST !
+
                 return $this->security->isGranted('ROLE_ADMIN');
 
             case 'view':

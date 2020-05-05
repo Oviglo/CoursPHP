@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin_base.html.twig' %}
 
 {% block body %}
 <h1>{{ 'article.list'|trans }}</h1>
@@ -12,7 +12,7 @@
         <h3>
             <a href="{{ path('app_article_show', {'id': article.id}) }}">{{ article.title }}</a>
         </h3>
-        {% if is_granted('ROLE_ADMIN') %}
+        {% if is_granted('edit', article) %}
         <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-info">Modifier</a>
         {% endif %}
     </div>
@@ -23,7 +23,7 @@
     {% endblock %}
 
     {% block footer %}
-        <i>{{ article.dateCreate|date('d/m/Y') }}</i>
+        <i>{{ article.dateCreate|date('d/m/Y') }}</i>{% if article.dateUpdate != '' %} - <i>{{ article.dateUpdate|date('d/m/Y') }}{% endif %}</i>
     {% endblock %}
 
     {% endembed %}

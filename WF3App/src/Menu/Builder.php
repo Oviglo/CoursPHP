@@ -44,4 +44,19 @@ class Builder
 
         return $menu;
     }
+
+    /**
+     * Génére le menu admin.
+     */
+    public function adminMenu(array $options)
+    {
+        // Créer une racine
+        $menu = $this->factory->createItem('root');
+
+        $menu->addChild('menu.articles', ['route' => 'app_article_index']);
+        $menu->addChild('menu.categories', ['route' => 'category_index']);
+        $menu->addChild('menu.images', ['route' => 'image_index']);
+
+        return $menu;
+    }
 }

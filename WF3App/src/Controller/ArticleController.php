@@ -58,6 +58,7 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/{id}", requirements = {"id": "\d+"})
+     * @Security("is_granted('view', article)")
      */
     public function show(Article $article)
     {
@@ -67,7 +68,7 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/new")
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_USER')")
      */
     public function new(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
@@ -80,6 +81,8 @@ class ArticleController extends AbstractController
         // $entityManager = $this->getDoctrine()->getManager();
 
         $article = new Article();
+
+        $this->denyAccessUnlessGranted('edit', $article);
 
         // Création d'un formulaire et envoi de l'article en data
         $form = $this->createForm(ArticleType::class, $article);
@@ -110,15 +113,15 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/{id}/edit", requirements = {"id": "\d+"})
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('edit', article)")
      */
-    public function edit(Request $request, EntityManagerInterface $entityManager, Article $article): Response
+    public function edit(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator, Article $article): Response
     {
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-            $this->addFlash('success', 'Article modifié');
+            $this->addFlash('success', $translator->trans('article.edit.success', ['%title%' => $article->getTitle()]));
 
             return $this->redirectToRoute('app_article_index');
         }

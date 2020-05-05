@@ -3,6 +3,8 @@ menu:
   admin: Administration
   login: Se connecter
   logout: Se déconnecter
+  categories: Catégories
+  images: Images
 
 article:
   list: Liste des articles
@@ -18,5 +20,8 @@ article:
   new:
     title: Ajouter un article
     success: L'article "%title%" a bien été ajouté
+
+image:
+  file: Fichier image
 
 save: Enregistrer

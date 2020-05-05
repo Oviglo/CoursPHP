@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Article
 {
@@ -62,6 +63,11 @@ class Article
      * @Assert\NotBlank
      */
     private $content;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateUpdate;
 
     public function __construct()
     {
@@ -196,5 +202,25 @@ class Article
         $this->difficulty = $difficulty;
 
         return $this;
+    }
+
+    public function getDateUpdate(): ?\DateTimeInterface
+    {
+        return $this->dateUpdate;
+    }
+
+    public function setDateUpdate(?\DateTimeInterface $dateUpdate): self
+    {
+        $this->dateUpdate = $dateUpdate;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function preUpdate()
+    {
+        $this->dateUpdate = new \DateTime();
     }
 }
