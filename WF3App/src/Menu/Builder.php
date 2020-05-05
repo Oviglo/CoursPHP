@@ -3,6 +3,7 @@
 namespace App\Menu;
 
 use Knp\Menu\FactoryInterface;
+use Symfony\Component\Security\Core\Security;
 
 class Builder
 {
@@ -10,10 +11,12 @@ class Builder
      * Objet pour construire un menu.
      */
     private $factory;
+    private $security;
 
-    public function __construct(FactoryInterface $factory)
+    public function __construct(FactoryInterface $factory, Security $security)
     {
         $this->factory = $factory;
+        $this->security = $security;
     }
 
     /*
@@ -25,7 +28,12 @@ class Builder
         $menu = $this->factory->createItem('root');
 
         // Ajout d'un item
-        $menu->addChild('Articles', ['route' => 'app_article_index']);
+        $menu->addChild('menu.articles', ['route' => 'app_article_index']);
+
+        // Utilisation du service security pour tester le rôle
+        if ($this->security->isGranted('ROLE_ADMIN')) {
+            $menu->addChild('menu.admin', ['route' => 'app_app_home']);
+        }
 
         return $menu;
     }

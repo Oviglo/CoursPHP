@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 //Indique que toute les routes de ce controller vont commencer par "/article"
 /**
@@ -66,9 +67,15 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/new")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function new(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
+        // Génére une erreur 403 (deny access) si l'utilisateur n'a pas le rôle 'ROLE_ADMIN'
+        // $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        // Retourne true si l'utilisateur à le rôle
+        // $this->isGranted('ROLE_ADMIN');
+
         // Il est possible d'obtenir le service entityManager comme ceci:
         // $entityManager = $this->getDoctrine()->getManager();
 
@@ -103,6 +110,7 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/{id}/edit", requirements = {"id": "\d+"})
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function edit(Request $request, EntityManagerInterface $entityManager, Article $article): Response
     {
@@ -120,6 +128,7 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/{id}/delete", requirements = {"id": "\d+"})
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function delete(Request $request, EntityManagerInterface $entityManager, Article $article): Response
     {

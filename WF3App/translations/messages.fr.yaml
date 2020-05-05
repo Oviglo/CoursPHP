@@ -1,3 +1,7 @@
+menu:
+  articles: Articles
+  admin: Administration
+
 article:
   list: Liste des articles
   title: Titre de l'article
