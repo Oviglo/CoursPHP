@@ -1,5 +1,8 @@
 $primary: rgb(45, 163, 128);
+
+@import '~bootswatch/dist/lumen/_variables.scss';
 @import 'common.scss';
+@import '~bootswatch/dist/lumen/_bootswatch.scss';
 
 $side-width : 250px;
 .wrapper {
@@ -15,7 +18,6 @@ $side-width : 250px;
     min-height: 100vh;
     background: lighten($primary, 10%);
     color: #fff;
-
 
     .sidebar-header {
         padding: 12px;

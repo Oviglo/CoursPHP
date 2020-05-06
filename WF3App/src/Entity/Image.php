@@ -22,7 +22,7 @@ class Image
     /**
      * @ORM\Column(type="string", length=60)
      */
-    private $name;
+    private $name = '';
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -147,5 +147,18 @@ class Image
         if (is_file($this->getPublicRootDir().$this->path)) {
             unlink($this->getPublicRootDir().$this->path);
         }
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Retourne le lien pour afficher l'image (peut être inclus dans une balise img).
+     */
+    public function getWebPath()
+    {
+        return '/uploads/images/'.$this->path;
     }
 }

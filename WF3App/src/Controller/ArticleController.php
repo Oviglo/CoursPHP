@@ -51,7 +51,7 @@ class ArticleController extends AbstractController
         */
 
         // Calcul du nombre de pages
-        $nbPages = ($articles->count() / $countPerPage);
+        $nbPages = ceil($articles->count() / $countPerPage);
 
         return $this->render('article/index.html.twig', ['articles' => $articles, 'page' => $page, 'nbPages' => $nbPages]);
     }
@@ -81,6 +81,7 @@ class ArticleController extends AbstractController
         // $entityManager = $this->getDoctrine()->getManager();
 
         $article = new Article();
+        $article->setUser($this->getUser());
 
         $this->denyAccessUnlessGranted('edit', $article);
 
@@ -120,6 +121,7 @@ class ArticleController extends AbstractController
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $article->setUser($this->getUser());
             $entityManager->flush();
             $this->addFlash('success', $translator->trans('article.edit.success', ['%title%' => $article->getTitle()]));
 

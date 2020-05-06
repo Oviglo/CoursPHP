@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>{{ 'article.list'|trans }}</h1>
+{{ 'article.result_count'|trans({'count': articles|length }) }}
+
+<div class="article-list">
+{% for article in articles %}
+    {% embed "decorators/_card.html.twig" with {'class': 'my-3'} %}
+    {% block header %}
+    <div class="d-flex justify-content-between">
+        <h3>
+            <a href="{{ path('app_article_show', {'id': article.id}) }}">{{ article.title }}</a>
+        </h3>
+        {% if is_granted('edit', article) %}
+        <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-info">Modifier</a>
+        {% endif %}
+    </div>
+    {% endblock %}
+
+    {% block body %}
+    {{ article.content }}
+    {% endblock %}
+
+    {% block footer %}
+        <i>{{ article.dateCreate|date('d/m/Y') }}</i>{% if article.dateUpdate != '' %} - <i>{{ article.dateUpdate|date('d/m/Y') }}{% endif %}</i>
+    {% endblock %}
+
+    {% endembed %}
+{% endfor %}
+
+{% include 'decorators/_pagination.html.twig' with {'route': 'app_article_index'} %}
+</div>
+
+
+{% endblock %}

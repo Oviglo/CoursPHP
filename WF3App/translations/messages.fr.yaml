@@ -16,6 +16,7 @@ article:
   hard: Difficile
   difficulty_help: Quel est la difficulté de votre tuto ?
   content: Contenu de l'article
+  delete_image: Supprimer l'image
 
   new:
     title: Ajouter un article

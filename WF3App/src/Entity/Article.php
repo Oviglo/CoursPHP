@@ -69,9 +69,48 @@ class Article
      */
     private $dateUpdate;
 
+    /**
+     * @var ?Image
+     *
+     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade="all", orphanRemoval=true)
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    private $image;
+
+    /**
+     * @var ?User
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    private $user;
+
+    /**
+     * @var bool
+     */
+    private $deleteImage;
+
     public function __construct()
     {
         $this->dateCreate = new \DateTime();
+    }
+
+    /**
+     * @return bool
+     */
+    public function getDeleteImage()
+    {
+        return $this->deleteImage;
+    }
+
+    public function setDeleteImage(bool $deleteImage)
+    {
+        $this->deleteImage = $deleteImage;
+        if ($deleteImage) {
+            $this->image = null;
+        }
+
+        return $this;
     }
 
     /**
@@ -222,5 +261,49 @@ class Article
     public function preUpdate()
     {
         $this->dateUpdate = new \DateTime();
+    }
+
+    /**
+     * Get the value of image.
+     *
+     * @return ?Image
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set the value of image.
+     *
+     * @param ?Image $image
+     *
+     * @return self
+     */
+    public function setImage(?Image $image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return ?User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param ?User $user
+     *
+     * @return self
+     */
+    public function setUser(?User $user)
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }

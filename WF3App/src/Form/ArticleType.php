@@ -3,7 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use App\Entity\Image;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -35,6 +38,19 @@ class ArticleType extends AbstractType
                     'article.hard' => 2,
                 ],
             ])
+
+            /*->add('image', EntityType::class, [
+                'class' => Image::class,
+                // 'choice_label' => 'name'
+            ])*/
+            // Inclus le formulaire d'image dans le formulaire article
+            ->add('image', ImageType::class, ['label' => false])
+
+            ->add('deleteImage', CheckboxType::class, [
+                'label' => 'article.delete_image',
+                'required' => false, // Pas obligatoire
+            ])
+
             // Ajout du submit
             ->add('save', SubmitType::class, ['label' => 'save'])
         ;

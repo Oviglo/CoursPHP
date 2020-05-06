@@ -2,35 +2,50 @@
 
 {% block body %}
 <h1>{{ 'article.list'|trans }}</h1>
-{{ 'article.result_count'|trans({'count': articles|length }) }}
 
-<div class="article-list">
-{% for article in articles %}
-    {% embed "decorators/_card.html.twig" with {'class': 'my-3'} %}
+{% embed "decorators/_card.html.twig" with {'class': 'my-3'} %}
     {% block header %}
     <div class="d-flex justify-content-between">
-        <h3>
-            <a href="{{ path('app_article_show', {'id': article.id}) }}">{{ article.title }}</a>
-        </h3>
-        {% if is_granted('edit', article) %}
-        <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-info">Modifier</a>
-        {% endif %}
+        <div>{{ 'article.result_count'|trans({'count': articles|length }) }}</div>
+        <a href="{{ path('app_article_new')}}" class="btn btn-success"><i class="fas fa-plus"></i> {{ 'article.new.title'|trans }}</a>
     </div>
     {% endblock %}
 
-    {% block body %}
-    {{ article.content }}
+    {% block table %}
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>{{ 'article.title'|trans }}</th>
+                    <th>{{ 'article.author'|trans }}</th>
+                    <th>{{ 'date.create'|trans }}</th>
+                    <th>{{ 'date.update'|trans }}</th>
+                    <th>{{ 'actions'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in articles %}
+                <tr>
+                    <td>{{ article.title }}</td>
+                    <td>{{ article.user }}</td>
+                    <td>{{ article.dateCreate|date('d/m/Y') }}</td>
+                    <td>{{ article.dateUpdate|date('d/m/Y') }}</td>
+                    <td>
+                        <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-secondary"><i class="fas fa-edit"></i></a>
+                        <a href="{{ path('app_article_delete', {'id': article.id}) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     {% endblock %}
 
     {% block footer %}
-        <i>{{ article.dateCreate|date('d/m/Y') }}</i>{% if article.dateUpdate != '' %} - <i>{{ article.dateUpdate|date('d/m/Y') }}{% endif %}</i>
+        {% include 'decorators/_pagination.html.twig' with {'route': 'app_article_index'} %}
     {% endblock %}
 
     {% endembed %}
-{% endfor %}
 
-{% include 'decorators/_pagination.html.twig' with {'route': 'app_article_index'} %}
-</div>
+
 
 
 {% endblock %}
