@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use App\Entity\Category;
 use App\Entity\Image;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -49,6 +50,13 @@ class ArticleType extends AbstractType
             ->add('deleteImage', CheckboxType::class, [
                 'label' => 'article.delete_image',
                 'required' => false, // Pas obligatoire
+            ])
+
+            ->add('categories', EntityType::class, [
+                'label' => 'article.categories',
+                'class' => Category::class,
+                'multiple' => true,
+                'expanded' => true,
             ])
 
             // Ajout du submit
