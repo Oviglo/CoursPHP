@@ -5,6 +5,7 @@ menu:
   logout: Se déconnecter
   categories: Catégories
   images: Images
+  users: Utilisateurs
 
 article:
   list: Liste des articles

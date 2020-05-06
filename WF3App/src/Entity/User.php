@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -34,6 +35,19 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="user")
+     */
+    private $articles;
+
+    public function __construct()
+    {
+        // crée un nouvel objet ArrayCollection par défaut pour éviter les erreurs d'appel de méthode sur une valeur nulle
+        $this->articles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -116,5 +130,25 @@ class User implements UserInterface
     public function __toString()
     {
         return $this->getUsername();
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+
+    /**
+     * @param ArrayCollection $articles
+     *
+     * @return self
+     */
+    public function setArticles(ArrayCollection $articles)
+    {
+        $this->articles = $articles;
+
+        return $this;
     }
 }

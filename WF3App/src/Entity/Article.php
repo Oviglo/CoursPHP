@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
@@ -75,15 +76,22 @@ class Article
      * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade="all", orphanRemoval=true)
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    private $image;
+    private $image = null;
 
     /**
      * @var ?User
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="articles")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $user;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category")
+     */
+    private $categories;
 
     /**
      * @var bool
@@ -282,6 +290,9 @@ class Article
      */
     public function setImage(?Image $image)
     {
+        if (empty($image->getFile())) {
+            $image = null;
+        }
         $this->image = $image;
 
         return $this;
@@ -303,6 +314,26 @@ class Article
     public function setUser(?User $user)
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * @param ArrayCollection $categories
+     *
+     * @return self
+     */
+    public function setCategories(ArrayCollection $categories)
+    {
+        $this->categories = $categories;
 
         return $this;
     }
