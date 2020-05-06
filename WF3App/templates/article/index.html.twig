@@ -12,10 +12,13 @@
     {% endblock %}
 
     {% block table %}
+        <div class="table-responsive">
         <table class="table">
             <thead class="thead-dark">
                 <tr>
+                    <th>{{ 'article.image'|trans }}</th>
                     <th>{{ 'article.title'|trans }}</th>
+                    <th>{{ 'article.categories'|trans }}</th>
                     <th>{{ 'article.author'|trans }}</th>
                     <th>{{ 'date.create'|trans }}</th>
                     <th>{{ 'date.update'|trans }}</th>
@@ -25,7 +28,17 @@
             <tbody>
                 {% for article in articles %}
                 <tr>
+                    <td>
+                        {% if article.image is not empty %}
+                        <img src="{{ asset(article.image.webPath) }}" style="max-height: 80px"/>
+                        {% endif %}
+                    </td>
                     <td>{{ article.title }}</td>
+                    <td>{# liste des catégories #}
+                    {% for category in article.categories %}
+                        <span class="badge badge-secondary m-1">{{ category }}</span>
+                    {% endfor %}
+                    </td>
                     <td>{{ article.user }}</td>
                     <td>{{ article.dateCreate|date('d/m/Y') }}</td>
                     <td>{{ article.dateUpdate|date('d/m/Y') }}</td>
@@ -37,6 +50,7 @@
                 {% endfor %}
             </tbody>
         </table>
+        </div>
     {% endblock %}
 
     {% block footer %}

@@ -23,6 +23,10 @@ class ArticleRepository extends ServiceEntityRepository
         $firstResult = ($page - 1) * $countPerPage;
         // demande l'alias de la table (FROM article AS a)
         $query = $this->createQueryBuilder('a')
+            ->addSelect('i, c, u') // Ajoute des select pour optimisé la requête
+            ->leftJoin('a.image', 'i')
+            ->leftJoin('a.categories', 'c')
+            ->leftJoin('a.user', 'u')
             ->where('a.content LIKE :search')
             ->setParameter(':search', '%'.trim($search).'%') // Définis le paramètre :search (bindValue)
             ->orderBy('a.dateCreate', 'desc')
@@ -41,6 +45,10 @@ class ArticleRepository extends ServiceEntityRepository
         $firstResult = ($page - 1) * $countPerPage;
 
         $query = $this->createQueryBuilder('a')
+            ->addSelect('i, c, u') // Ajoute des select pour optimisé la requête
+            ->leftJoin('a.image', 'i')
+            ->leftJoin('a.categories', 'c')
+            ->leftJoin('a.user', 'u')
             ->orderBy('a.dateCreate', 'desc')
             ->setFirstResult($firstResult) // OFFSET
             ->setMaxResults($countPerPage) // LIMIT

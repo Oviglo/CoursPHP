@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Image;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -57,6 +58,12 @@ class ArticleType extends AbstractType
                 'class' => Category::class,
                 'multiple' => true,
                 'expanded' => true,
+                'query_builder' => function (EntityRepository $er) {
+                    // Modifie la requête d'affichage de la liste des catégories
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.name', 'asc')
+                    ;
+                },
             ])
 
             // Ajout du submit
