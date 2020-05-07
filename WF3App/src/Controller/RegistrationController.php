@@ -17,8 +17,13 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
-    {
+    public function register(
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder,
+        GuardAuthenticatorHandler $guardHandler,
+        LoginFormAuthenticator $authenticator,
+        \Swift_Mailer $mailer
+        ): Response {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -37,6 +42,14 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // do anything else you need here, like send an email
+            $mailHtml = $this->renderView('emails/registration.html.twig', ['user' => $user]);
+            $message = (new \Swift_Message('Bienvenue sur le blog WF3'))
+                ->setFrom('nepasrepondre@monsupersite.fr', 'BLOG WF3')
+                ->setTo($user->getEmail())
+                ->setBody($mailHtml, 'text/html') // Nous devons indiqué que le format est en html
+            ;
+
+            $mailer->send($message);
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,

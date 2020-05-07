@@ -31,7 +31,10 @@ if (null != scoreForm) { // Test si le formulaire existe bien
         request.open('post', scoreForm.getAttribute('action'));
         request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         request.onload = () => {
-            console.log(request.responseText);
+            let json = JSON.parse(request.responseText);
+            let result = document.createElement('div');
+            result.innerHTML = json.message;
+            scoreForm.parentNode.replaceChild(result, scoreForm);
         };
         // Récupére la valeur du bouton cliqué
         let formData = new FormData(scoreForm);

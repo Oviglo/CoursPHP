@@ -2,6 +2,7 @@
 
 namespace App\Menu;
 
+use App\Repository\CategoryRepository;
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\Security\Core\Security;
 
@@ -12,11 +13,13 @@ class Builder
      */
     private $factory;
     private $security;
+    private $categoryRepository;
 
-    public function __construct(FactoryInterface $factory, Security $security)
+    public function __construct(FactoryInterface $factory, Security $security, CategoryRepository $categoryRepository)
     {
         $this->factory = $factory;
         $this->security = $security;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /*
@@ -40,6 +43,12 @@ class Builder
             $menu->addChild('menu.logout', ['route' => 'app_logout']);
         } else {
             $menu->addChild('menu.login', ['route' => 'app_login']);
+        }
+
+        $categories = $this->categoryRepository->findAll();
+        $menuCat = $menu->addChild('categories', ['uri' => '#']);
+        foreach ($categories as $category) {
+            $menuCat->addChild($category->getName(), ['route' => 'category_show', 'routeParameters' => ['id' => $category->getId()]]);
         }
 
         return $menu;

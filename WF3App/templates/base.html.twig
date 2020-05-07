@@ -9,7 +9,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
             <a href="#" class="navbar-brand">WF3 App</a>
-            {{ knp_menu_render('main') }}
+            {{ knp_menu_render('main', {'style': 'horizontal'}) }}
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="{{ path('app_app_home', {'_locale': 'fr'}) }}">FR</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ path('app_app_home', {'_locale': 'en'}) }}">EN</a></li>

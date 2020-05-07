@@ -162,10 +162,10 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/score", requirements={"id": "\d+"})
+     * @Route("/{id}/score.{_format}", requirements={"id": "\d+", "_format": "html|json"}, defaults={"_format": "html"})
      * @Security("is_granted('ROLE_USER')")
      */
-    public function score(Request $request, Article $article, TranslatorInterface $translator, ArticleScoreRepository $asRepository, EntityManagerInterface $entityManager): Response
+    public function score(Request $request, Article $article, TranslatorInterface $translator, ArticleScoreRepository $asRepository, EntityManagerInterface $entityManager, string $_format): Response
     {
         $user = $this->getUser(); // Utilisateur connecté
         /*
@@ -191,16 +191,16 @@ class ArticleController extends AbstractController
             $entityManager->flush();
 
             if (!$request->isXmlHttpRequest()) {
-                $this->addFlash('success', $translator->trans('article.score.success'));
+                // $this->addFlash('success', $translator->trans('article.score.success'));
             }
         } else {
             if (!$request->isXmlHttpRequest()) {
-                $this->addFlash('error', $translator->trans('article.score.error'));
+                // $this->addFlash('error', $translator->trans('article.score.error'));
             }
         }
 
         // Test si la requête s'est faite en AJAX
-        if ($request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest() || 'json' == $_format) {
             return new JsonResponse(['status' => 'success', 'message' => $translator->trans('article.score.success')]);
         }
 

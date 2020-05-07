@@ -1,0 +1,6 @@
+swiftmailer:
+  url: '%env(MAILER_URL)%'
+  stream_options: 
+    ssl:
+      verify_peer: false
+      verify_peer_name: false
