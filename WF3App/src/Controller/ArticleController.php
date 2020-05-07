@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\ArticleScore;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
+use App\Repository\ArticleScoreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -13,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 //Indique que toute les routes de ce controller vont commencer par "/article"
 /**
@@ -156,5 +159,51 @@ class ArticleController extends AbstractController
             'article' => $article,
             'form' => $form->createView(), ]
         );
+    }
+
+    /**
+     * @Route("/{id}/score", requirements={"id": "\d+"})
+     * @Security("is_granted('ROLE_USER')")
+     */
+    public function score(Request $request, Article $article, TranslatorInterface $translator, ArticleScoreRepository $asRepository, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser(); // Utilisateur connecté
+        /*
+            Test d'abord si l'utilisateur a déjà entré un score (findOneByArticleUser)
+            Si oui on modifie ce score
+            Si non on ajoute un nouveau score
+        */
+
+        // Test si le token csrf est valide
+        if ($this->isCsrfTokenValid('score'.$article->getId(), $request->request->get('_token'))) {
+            // Récupére le score entré par l'utilisateur
+            $score = $asRepository->findOneByArticleUser($article, $user);
+            if (null == $score) { // Pas encore entré de score
+                $score = (new ArticleScore()) // Crée une nouvelle entité score
+                    ->setUser($user)
+                    ->setArticle($article)
+                ;
+            }
+            // intval converti une chaîne en nombre entier
+            $score->setScore(intval($request->request->get('score')));
+
+            $entityManager->persist($score);
+            $entityManager->flush();
+
+            if (!$request->isXmlHttpRequest()) {
+                $this->addFlash('success', $translator->trans('article.score.success'));
+            }
+        } else {
+            if (!$request->isXmlHttpRequest()) {
+                $this->addFlash('error', $translator->trans('article.score.error'));
+            }
+        }
+
+        // Test si la requête s'est faite en AJAX
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse(['status' => 'success', 'message' => $translator->trans('article.score.success')]);
+        }
+
+        return $this->redirectToRoute('app_article_show', ['id' => $article->getId()]);
     }
 }

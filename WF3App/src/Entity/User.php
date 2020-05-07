@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -43,10 +44,16 @@ class User implements UserInterface
      */
     private $articles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ArticleScore", mappedBy="user", orphanRemoval=true)
+     */
+    private $articleScores;
+
     public function __construct()
     {
         // crée un nouvel objet ArrayCollection par défaut pour éviter les erreurs d'appel de méthode sur une valeur nulle
         $this->articles = new ArrayCollection();
+        $this->articleScores = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -148,6 +155,37 @@ class User implements UserInterface
     public function setArticles(ArrayCollection $articles)
     {
         $this->articles = $articles;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ArticleScore[]
+     */
+    public function getArticleScores(): Collection
+    {
+        return $this->articleScores;
+    }
+
+    public function addArticleScore(ArticleScore $articleScore): self
+    {
+        if (!$this->articleScores->contains($articleScore)) {
+            $this->articleScores[] = $articleScore;
+            $articleScore->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticleScore(ArticleScore $articleScore): self
+    {
+        if ($this->articleScores->contains($articleScore)) {
+            $this->articleScores->removeElement($articleScore);
+            // set the owning side to null (unless already changed)
+            if ($articleScore->getUser() === $this) {
+                $articleScore->setUser(null);
+            }
+        }
 
         return $this;
     }

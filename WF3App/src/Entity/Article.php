@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -98,9 +99,15 @@ class Article
      */
     private $deleteImage;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ArticleScore", mappedBy="article", orphanRemoval=true)
+     */
+    private $articleScores;
+
     public function __construct()
     {
         $this->dateCreate = new \DateTime();
+        $this->articleScores = new ArrayCollection();
     }
 
     /**
@@ -334,6 +341,37 @@ class Article
     public function setCategories(ArrayCollection $categories)
     {
         $this->categories = $categories;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ArticleScore[]
+     */
+    public function getArticleScores(): Collection
+    {
+        return $this->articleScores;
+    }
+
+    public function addArticleScore(ArticleScore $articleScore): self
+    {
+        if (!$this->articleScores->contains($articleScore)) {
+            $this->articleScores[] = $articleScore;
+            $articleScore->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticleScore(ArticleScore $articleScore): self
+    {
+        if ($this->articleScores->contains($articleScore)) {
+            $this->articleScores->removeElement($articleScore);
+            // set the owning side to null (unless already changed)
+            if ($articleScore->getArticle() === $this) {
+                $articleScore->setArticle(null);
+            }
+        }
 
         return $this;
     }

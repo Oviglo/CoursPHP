@@ -5,5 +5,15 @@
 <article>
     {{ article.content }}
 </article>
+<hr/>
+<form action="{{ path('app_article_score', {'id' :article.id}) }}" method="post" id="score-form">
+    <p>{{ 'article.add_score'|trans }}</p>
+    <button type="submit" name="score" class="btn btn-link m-1" value="1"><i class="fas fa-star"></i></button>
+    <button type="submit" name="score" class="btn btn-link m-1" value="2"><i class="fas fa-star"></i></button>
+    <button type="submit" name="score" class="btn btn-link m-1" value="3"><i class="fas fa-star"></i></button>
+    <button type="submit" name="score" class="btn btn-link m-1" value="4"><i class="fas fa-star"></i></button>
+    <button type="submit" name="score" class="btn btn-link m-1" value="5"><i class="fas fa-star"></i></button>
+    <input type="hidden" name="_token" value="{{ csrf_token('score' ~ article.id) }}">
+</form>
 
 {% endblock %}
