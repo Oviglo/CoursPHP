@@ -214,8 +214,8 @@
         {%- set label = label|trans(item.extra('translation_params', {}), translation_domain) -%}
     {%- endif -%}
     {%- if options.allow_safe_labels and item.getExtra('safe_label', false) -%}
-        {{ label|raw }}
+        {{ label|raw|parse_icons }}
     {%- else -%}
-        {{ label }}
+        {{ label|parse_icons }}
     {%- endif -%}
 {% endblock %}

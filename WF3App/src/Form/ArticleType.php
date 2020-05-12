@@ -26,6 +26,7 @@ class ArticleType extends AbstractType
             ])
             ->add('content', null, [
                 'label' => 'article.content',
+                'attr' => ['class' => 'wysiwyg'],
             ])
             ->add('published', null, [
                 'label' => 'article.published',

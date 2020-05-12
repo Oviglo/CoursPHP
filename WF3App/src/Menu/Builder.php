@@ -45,10 +45,17 @@ class Builder
             $menu->addChild('menu.login', ['route' => 'app_login']);
         }
 
+        // ajout des catégories
+        // On a besoin du CategoryRepository
         $categories = $this->categoryRepository->findAll();
-        $menuCat = $menu->addChild('categories', ['uri' => '#']);
-        foreach ($categories as $category) {
-            $menuCat->addChild($category->getName(), ['route' => 'category_show', 'routeParameters' => ['id' => $category->getId()]]);
+        // Créer un sous menu (dropdown)
+        $menuCat = $menu->addChild('menu.categories', ['uri' => '#']); // uri est un lien
+
+        foreach ($categories as $cat) {
+            $menuCat->addChild($cat->getName(), [
+                'route' => 'category_show',
+                'routeParameters' => ['id' => $cat->getId()],
+            ])->setExtra('translation_domain', false); // Indique qu'il ne faut pas traduire cet élément de menu
         }
 
         return $menu;

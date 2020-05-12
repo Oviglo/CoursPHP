@@ -1,11 +1,11 @@
 menu:
-  articles: Articles
-  admin: Administration
-  login: Se connecter
-  logout: Se déconnecter
-  categories: Catégories
-  images: Images
-  users: Utilisateurs
+  articles: .icon-newspaper Articles
+  admin: .icon-cogs Administration
+  login: .icon-sign-in-alt Se connecter
+  logout: .icon-sign-out-alt Se déconnecter
+  categories: .icon-tags Catégories
+  images: .icon-images Images
+  users: .icon-users Utilisateurs
 
 article:
   list: Liste des articles
